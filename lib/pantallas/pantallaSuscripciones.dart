@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'file:///C:/Users/Miguelito/Desktop/app/frontend_lajamasana/lajamasana/lib/pantallas/pantallaDiaDomingo.dart';
+import 'package:lajamasana/api/suscripcion_controller.dart';
+import 'package:lajamasana/modelos/suscripcion_model.dart';
+import 'package:lajamasana/pantallas/pantallaDiaDomingo.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
@@ -9,46 +11,131 @@ class PantallaSuscripciones extends StatefulWidget {
 }
 
 class _PantallaSuscripcionesState extends State<PantallaSuscripciones> {
-  double disabled = 0xff969FAA;
-  var _suscripcionesN = [];
-  List<Widget> _widgets = [];
   int _selectedRadio = 0;
-
-  void getSuscripciones() async {
-    var response = await http.get("http://10.0.2.2:3000/suscripciones");
-    var datos = json.decode(response.body) as List;
-    setState(() {
-      _suscripcionesN = datos;
-    });
-  }
-
-  void setSelectedTile(int val) {
-    setState(() {
-      _selectedRadio = val;
-    });
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    this.getSuscripciones();
-  }
+  // double disabled = 0xff969FAA;
+  // var _suscripcionesN = [];
+  // List<Widget> _widgets = [];
+  // void getSuscripciones() async {
+  //   var response = await http.get("http://10.0.2.2:3000/suscripciones");
+  //   var datos = json.decode(response.body) as List;
+  //   setState(() {
+  //     _suscripcionesN = datos;
+  //   });
+  // }
+  //
+  // void setSelectedTile(int val) {
+  //   setState(() {
+  //     _selectedRadio = val;
+  //   });
+  // }
+  //
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  //   this.getSuscripciones();
+  // }
 
   @override
   Widget build(BuildContext context) {
-    this.crearSuscripciones();
     return Scaffold(
-        body: ListView(
-      children: [
-        Column(
-          children: [crearTexto()] + _widgets + [crearBoton()],
-        ),
-      ],
-    ));
+        body: FutureBuilder(
+          future: SuscripcionController.getSuscripciones(),
+          builder: (BuildContext context, AsyncSnapshot<List<Suscripcion>> snapshot){
+            if(snapshot.connectionState == ConnectionState.waiting){
+              return Center(child: CircularProgressIndicator());
+            }else{
+              return pantallaSuscripciones( snapshot.data );
+            }
+          },
+        )
+    );
   }
 
-  //Texto
+  Widget pantallaSuscripciones( List<Suscripcion> suscripciones ){
+
+    List<Widget> widgets = [crearTexto()];
+
+    for(int i=0 ; i<suscripciones.length; i++){
+
+      widgets.add(
+        Padding(
+          padding: EdgeInsets.only(top: 10),
+          child: Container(
+            color: Color(int.parse(suscripciones[i].color)).withOpacity(.5),
+            height: 115,
+            child: RadioListTile(
+              value: suscripciones[i].id,
+              groupValue: _selectedRadio,
+              onChanged: (val){
+                print(val);
+                setState(() {
+                  _selectedRadio = val;
+                });
+              },
+              activeColor: Colors.black,
+              selected: false,
+              title: Padding(
+                padding: EdgeInsets.only(top: 10),
+                child: Text(
+                  suscripciones[i].nombre,
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontFamily: "Roboto",
+                      fontSize: 20),
+                ),
+              ),
+              subtitle: Padding(
+                padding: EdgeInsets.only(top: 10),
+                child: Text(
+                  suscripciones[i].duracion+
+                      "\nIncluye " +
+                      suscripciones[i].cantidad,
+                  style: TextStyle(fontFamily: "Roboto", fontSize: 15),
+                ),
+              ),
+              secondary: Container(
+                padding: EdgeInsets.only(right: 15),
+                alignment: Alignment.center,
+                height: 100,
+                width: 150,
+                child: Column(
+                  children: [
+                    Text(
+                      "\$" + suscripciones[i].precio.toStringAsFixed(2),
+                      style: TextStyle(
+                        fontSize: 25,
+                        fontFamily: "Roboto",
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Padding(padding: EdgeInsets.only(top: 10)),
+                    Text(
+                      "+ impuestos aplicables",
+                      style: TextStyle(
+                        fontSize: 13,
+                        fontFamily: "Roboto",
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        )
+      );
+    }
+
+    widgets.add(crearBoton());
+    return ListView(
+      children: [
+        Column(
+          children: widgets,
+        )
+      ],
+    );
+  }
+
   Widget crearTexto() {
     return Center(
         child: Padding(
@@ -64,7 +151,6 @@ class _PantallaSuscripcionesState extends State<PantallaSuscripciones> {
     ));
   }
 
-  //Boton
   Widget crearBoton() {
     return Padding(
         padding: EdgeInsets.only(top: 15),
@@ -96,71 +182,71 @@ class _PantallaSuscripcionesState extends State<PantallaSuscripciones> {
         ));
   }
 
-  void crearSuscripciones() {
-    double padding = 10;
-    for (var i = 0; i < _suscripcionesN.length; i++) {
-      _widgets.add(Padding(
-        padding: EdgeInsets.only(top: padding),
-        child: Container(
-          color: Color(int.parse(_suscripcionesN[i]["color"])).withOpacity(.50),
-          height: 115,
-          child: RadioListTile(
-            value: _suscripcionesN[i]["id"] + 1,
-            groupValue: _selectedRadio,
-            onChanged: (val) {
-              _widgets.clear();
-              setSelectedTile(val);
-            },
-            activeColor: Colors.black,
-            selected: false,
-            title: Padding(
-              padding: EdgeInsets.only(top: 10),
-              child: Text(
-                _suscripcionesN[i]["nombre"],
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontFamily: "Roboto",
-                    fontSize: 20),
-              ),
-            ),
-            subtitle: Padding(
-              padding: EdgeInsets.only(top: 10),
-              child: Text(
-                _suscripcionesN[i]["duracion"] +
-                    "\nIncluye " +
-                    _suscripcionesN[i]["cantidad"],
-                style: TextStyle(fontFamily: "Roboto", fontSize: 15),
-              ),
-            ),
-            secondary: Container(
-              padding: EdgeInsets.only(right: 15),
-              alignment: Alignment.center,
-              height: 100,
-              width: 150,
-              child: Column(
-                children: [
-                  Text(
-                    "\$" + _suscripcionesN[i]["precio"].toStringAsFixed(2),
-                    style: TextStyle(
-                      fontSize: 25,
-                      fontFamily: "Roboto",
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Padding(padding: EdgeInsets.only(top: 10)),
-                  Text(
-                    "+ impuestos aplicables",
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontFamily: "Roboto",
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ));
-    }
-  }
+// void crearSuscripciones() {
+  //   double padding = 10;
+  //   for (var i = 0; i < _suscripcionesN.length; i++) {
+  //     _widgets.add(Padding(
+  //       padding: EdgeInsets.only(top: padding),
+  //       child: Container(
+  //         color: Color(int.parse(_suscripcionesN[i]["color"])).withOpacity(.50),
+  //         height: 115,
+  //         child: RadioListTile(
+  //           value: _suscripcionesN[i]["id"] + 1,
+  //           groupValue: _selectedRadio,
+  //           onChanged: (val) {
+  //             _widgets.clear();
+  //             setSelectedTile(val);
+  //           },
+  //           activeColor: Colors.black,
+  //           selected: false,
+  //           title: Padding(
+  //             padding: EdgeInsets.only(top: 10),
+  //             child: Text(
+  //               _suscripcionesN[i]["nombre"],
+  //               style: TextStyle(
+  //                   fontWeight: FontWeight.bold,
+  //                   fontFamily: "Roboto",
+  //                   fontSize: 20),
+  //             ),
+  //           ),
+  //           subtitle: Padding(
+  //             padding: EdgeInsets.only(top: 10),
+  //             child: Text(
+  //               _suscripcionesN[i]["duracion"] +
+  //                   "\nIncluye " +
+  //                   _suscripcionesN[i]["cantidad"],
+  //               style: TextStyle(fontFamily: "Roboto", fontSize: 15),
+  //             ),
+  //           ),
+  //           secondary: Container(
+  //             padding: EdgeInsets.only(right: 15),
+  //             alignment: Alignment.center,
+  //             height: 100,
+  //             width: 150,
+  //             child: Column(
+  //               children: [
+  //                 Text(
+  //                   "\$" + _suscripcionesN[i]["precio"].toStringAsFixed(2),
+  //                   style: TextStyle(
+  //                     fontSize: 25,
+  //                     fontFamily: "Roboto",
+  //                     fontWeight: FontWeight.bold,
+  //                   ),
+  //                 ),
+  //                 Padding(padding: EdgeInsets.only(top: 10)),
+  //                 Text(
+  //                   "+ impuestos aplicables",
+  //                   style: TextStyle(
+  //                     fontSize: 13,
+  //                     fontFamily: "Roboto",
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //           ),
+  //         ),
+  //       ),
+  //     ));
+  //   }
+  // }
 }
