@@ -1,4 +1,17 @@
-# lajamasana
+# La Jama Sana
+
+1. lib/pantallas
+2. lib/api
+3. lib/modelos
+
+### Modelos
+Clases para obtener las respuestas del backend y trabajarlas de mejor manera en la apliccacion.
+
+### Api
+Clases que se encargan de hacer las peticiones al backend para cada tipo de recurso.
+
+### Pantallas
+Todas las pantallas de la aplicacion. 
 
 A new Flutter application.
 
