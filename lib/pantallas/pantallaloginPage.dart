@@ -11,7 +11,6 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   //Funcion para validar el usuario
-
   bool _recordar = false;
 
   @override
