@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'pantallaDeComidas.dart';
-
+import 'package:lajamasana/pantallas/pantallaInformacionDeComidas.dart';
 class ListadoComidas extends StatefulWidget {
   @override
   _ListadoComidasState createState() => _ListadoComidasState();

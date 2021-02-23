@@ -1,10 +1,8 @@
-import 'dart:ffi';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:lajamasana/pantallaDiaDomingo.dart';
-import 'package:lajamasana/pantallaPerfiles.dart';
+import 'package:lajamasana/pantallas/pantallaPerfiles.dart';
+import 'package:lajamasana/pantallas/pantallaDiaDomingo.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -12,9 +10,9 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  bool _recordar = false;
-
   //Funcion para validar el usuario
+
+  bool _recordar = false;
 
   @override
   Widget build(BuildContext context) {
@@ -202,6 +200,7 @@ class _LoginPageState extends State<LoginPage> {
       onPressed: () {
         var route = MaterialPageRoute(builder: (context)=> PantallaDomingo());
         Navigator.of(context).pushAndRemoveUntil(route, (r)=>false);
+        //Validacion de usuario
       },
       color: Color(0xff77D353),
       shape: RoundedRectangleBorder(
@@ -241,6 +240,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+  //En veremos xdxd
   Widget crearRecordatorio() {
     return Container(
       padding: EdgeInsets.only(top: 600),

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lajamasana/pantallaDeComidas.dart';
-
 import 'listadoDeComidas.dart';
 
 class Hexagono extends StatefulWidget {

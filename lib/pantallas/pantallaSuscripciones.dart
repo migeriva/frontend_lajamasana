@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lajamasana/pantallaDiaDomingo.dart';
+import 'file:///C:/Users/Miguelito/Desktop/app/frontend_lajamasana/lajamasana/lib/pantallas/pantallaDiaDomingo.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 

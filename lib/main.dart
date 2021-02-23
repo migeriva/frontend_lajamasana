@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lajamasana/loginPage.dart';
-import 'listadoDeComidas.dart';
-import 'pantallaPerfiles.dart';
+import 'package:lajamasana/pantallas/pantallaloginPage.dart';
 
 void main() => runApp(MyApp());
 
