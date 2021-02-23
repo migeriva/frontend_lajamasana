@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lajamasana/hexagono.dart';
+import 'file:///C:/Users/Miguelito/Desktop/app/frontend_lajamasana/lajamasana/lib/widgets/hexagono.dart';
 
 class PantallaDomingo extends StatefulWidget {
   @override

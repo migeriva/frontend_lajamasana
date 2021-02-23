@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'listadoDeComidas.dart';
+import '../pantallas/pantallaListadoDeComidas.dart';
 
 class Hexagono extends StatefulWidget {
   int color;
