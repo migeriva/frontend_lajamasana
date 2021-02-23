@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:lajamasana/api/suscripcion_controller.dart';
 import 'package:lajamasana/modelos/suscripcion_model.dart';
 import 'package:lajamasana/pantallas/pantallaDiaDomingo.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
 
 class PantallaSuscripciones extends StatefulWidget {
   @override
