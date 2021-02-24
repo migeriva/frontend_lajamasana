@@ -59,6 +59,7 @@ flutter:
     - assets/imagenes/ganar-peso.png
     - assets/imagenes/rollycaly.png
     - assets/imagenes/carrodecompras.png
+    - assets/imagenes/sopa.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
