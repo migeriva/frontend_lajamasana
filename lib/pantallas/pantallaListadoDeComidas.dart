@@ -10,7 +10,7 @@ class ListadoComidas extends StatefulWidget {
 class _ListadoComidasState extends State<ListadoComidas> {
   List<String> _horarios = ["Desayuno", "Almuerzo", "Merienda"];
 
-  String _hint = "Almuerzo"; //Cambiar para que sea de acuerdo a la hora del dia
+  String _hint = "Almuerzo"; //Cambiar para que sea de acuerdo a la hora del dia actual
 
   @override
   Widget build(BuildContext context) {
