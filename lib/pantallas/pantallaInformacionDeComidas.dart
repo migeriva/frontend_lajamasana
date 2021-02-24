@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'pantallaDiaDomingo.dart';
+import 'package:lajamasana/pantallas/pantallaHome.dart';
 
 class PantallaDeComida extends StatefulWidget {
   @override
@@ -20,6 +20,7 @@ class _PantallaDeComidaState extends State<PantallaDeComida> {
     "Viernes",
     "Sabado"
   ];
+  
   String hintDia = "Seleccione un dia";
   String hintHora = "Seleccione la hora";
 
@@ -272,7 +273,7 @@ class _PantallaDeComidaState extends State<PantallaDeComida> {
           color: Color(0xff4FD053),
           onPressed: () {
             Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => PantallaDomingo()));
+                MaterialPageRoute(builder: (context) => PantallaHome()));
           },
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(50),
