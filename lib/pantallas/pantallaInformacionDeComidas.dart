@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:lajamasana/pantallas/pantallaHome.dart';
 
+//Obsoleta xdxd
+
 class PantallaDeComida extends StatefulWidget {
   @override
   _PantallaDeComidaState createState() => _PantallaDeComidaState();
