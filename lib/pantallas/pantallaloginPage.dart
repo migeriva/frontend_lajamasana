@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lajamasana/pantallas/pantallaPerfiles.dart';
-import 'package:lajamasana/pantallas/pantallaDiaDomingo.dart';
+import 'package:lajamasana/pantallas/pantallaHome.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -197,7 +197,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget botonIngresar() {
     return RaisedButton(
       onPressed: () {
-        var route = MaterialPageRoute(builder: (context)=> PantallaDomingo());
+        var route = MaterialPageRoute(builder: (context)=> PantallaHome());
         Navigator.of(context).pushAndRemoveUntil(route, (r)=>false);
         //Validacion de usuario
       },
