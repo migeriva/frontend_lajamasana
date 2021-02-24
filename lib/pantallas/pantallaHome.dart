@@ -50,29 +50,35 @@ class _PantallaHomeState extends State<PantallaHome> {
         ),
         backgroundColor: Colors.white,
       ),
-      drawer: Drawer(
-        child: ListView(
-          children: [
-            // UserAccountsDrawerHeader(
-            //   accountName: Text("AdoptMe"),
-            //   accountEmail: Text("Adopcion de mascotas"),
-            //   decoration: BoxDecoration(
-            //       image: DecorationImage(
-            //         fit: BoxFit.fill,
-            //         image: AssetImage('assets/imagenes/logo.png'),
-            //       )
-            //   ),
-            // ),  //Aqui va la imagen en caso de tenerla
-            //En caso de poner mas opciones aqui iran
-            ListTile(
-              title: Text("Cerrar Sesión"),
-              trailing: Icon(Icons.exit_to_app),
-              onTap: () => Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(builder: (context) => LoginPage()), (route) => false
+      drawer: Container(
+        width: 250,
+        child: Drawer(
+          child: ListView(
+            children: [
+              // UserAccountsDrawerHeader(
+              //   accountName: Text("AdoptMe"),
+              //   accountEmail: Text("Adopcion de mascotas"),
+              //   decoration: BoxDecoration(
+              //       image: DecorationImage(
+              //         fit: BoxFit.fill,
+              //         image: AssetImage('assets/imagenes/logo.png'),
+              //       )
+              //   ),
+              // ),  //Aqui va la imagen en caso de tenerla
+              //En caso de poner mas opciones aqui iran
+              ListTile(
+                title: Text("Cerrar Sesión"),
+                trailing: Icon(Icons.exit_to_app),
+                onTap: () => Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (context) => LoginPage()),
+                    (route) => false),
               ),
-            ),
-            Divider(thickness: 2, height: 5,),
-          ],
+              Divider(
+                thickness: 2,
+                height: 5,
+              ),
+            ],
+          ),
         ),
       ),
       body: crearHome(),
@@ -102,90 +108,85 @@ class _PantallaHomeState extends State<PantallaHome> {
     );
   }
 
-  Widget crearHome(){
-
+  Widget crearHome() {
     List<Widget> widgets = [crearFondo(context)];
 
     int diaActual = DateTime.now().add(Duration(hours: -5)).weekday;
 
-    if (diaActual==7){
+    if (diaActual == 7) {
       widgets.addAll(homeDomingo());
-    }else{
+    } else {
       widgets.addAll(homeSemana(diaActual));
     }
 
     return Stack(
       children: widgets,
     );
-
   }
 
-List<Widget> homeDomingo() { 
-
-  List<Widget> widgets = [];
-  for(int i=0; i<dias.length; i++){
+  List<Widget> homeDomingo() {
+    List<Widget> widgets = [];
+    for (int i = 0; i < dias.length; i++) {
       List<double> p = posiciones[posicion[i]];
       widgets.add(
         Padding(
           padding: EdgeInsets.only(top: p[0], left: p[1]),
-          child: Hexagono(i!=6?0xff969FAA:0xffFFFFFF, dias[i], 0, i!=6?1:0),
+          child: Hexagono(
+              i != 6 ? 0xff969FAA : 0xffFFFFFF, dias[i], 0, i != 6 ? 1 : 0),
         ),
       );
     }
     return widgets;
-}
+  }
 
 //Funcion rara, revisar en grupo
-List<Widget> homeSemana(int dia) {
-
+  List<Widget> homeSemana(int dia) {
     List<Widget> widgets = [];
 
-    widgets.add(
-      Padding(
-          padding: EdgeInsets.only(top: posiciones["center"][0], left: posiciones["center"][1]),
-          child: Hexagono(0xff77D353, dias[dia-1], 0, 0),
-        )
-    );
+    widgets.add(Padding(
+      padding: EdgeInsets.only(
+          top: posiciones["center"][0], left: posiciones["center"][1]),
+      child: Hexagono(0xff77D353, dias[dia - 1], 0, 0),
+    ));
 
-    int j=0;
-    int i=0;
-    while(j<3){
-      if (i==dia-1){i++;}
-      widgets.add(
-      Padding(
-          padding: EdgeInsets.only(top: posiciones[posicion[j]][0], left: posiciones[posicion[j]][1]),
-          child: Hexagono(0xff77D353, dias[i], 0, 0),
-        )
-      );
+    int j = 0;
+    int i = 0;
+    while (j < 3) {
+      if (i == dia - 1) {
+        i++;
+      }
+      widgets.add(Padding(
+        padding: EdgeInsets.only(
+            top: posiciones[posicion[j]][0], left: posiciones[posicion[j]][1]),
+        child: Hexagono(0xff77D353, dias[i], 0, 0),
+      ));
       j++;
       i++;
     }
 
     j++;
-    while(i<6){
-      
-      if(dia-1==5 && i==5){break;}
-      if(i==dia-1){i++;}
-      widgets.add(
-      Padding(
-          padding: EdgeInsets.only(top: posiciones[posicion[j]][0], left: posiciones[posicion[j]][1]),
-          child: Hexagono(0xff77D353, dias[i], 0, 0),
-        )
-      );
+    while (i < 6) {
+      if (dia - 1 == 5 && i == 5) {
+        break;
+      }
+      if (i == dia - 1) {
+        i++;
+      }
+      widgets.add(Padding(
+        padding: EdgeInsets.only(
+            top: posiciones[posicion[j]][0], left: posiciones[posicion[j]][1]),
+        child: Hexagono(0xff77D353, dias[i], 0, 0),
+      ));
       j++;
       i++;
-
     }
 
-    widgets.add(
-      Padding(
-          padding: EdgeInsets.only(top: posiciones["bottom"][0], left: posiciones["bottom"][1]),
-          child: Hexagono(0xff969FAA, dias[6], 0, 1),
-        )
-    );
+    widgets.add(Padding(
+      padding: EdgeInsets.only(
+          top: posiciones["bottom"][0], left: posiciones["bottom"][1]),
+      child: Hexagono(0xff969FAA, dias[6], 0, 1),
+    ));
 
-    return widgets; 
-
-}
-
+    return widgets;
+  }
 }
