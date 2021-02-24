@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lajamasana/api/suscripcion_controller.dart';
 import 'package:lajamasana/modelos/suscripcion_model.dart';
-import 'package:lajamasana/pantallas/pantallaDiaDomingo.dart';
+import 'package:lajamasana/pantallas/pantallaHome.dart';
 
 class PantallaSuscripciones extends StatefulWidget {
   @override
@@ -171,7 +171,7 @@ class _PantallaSuscripcionesState extends State<PantallaSuscripciones> {
                   ? () {
                       Navigator.of(context).pushAndRemoveUntil(
                           MaterialPageRoute(
-                              builder: (context) => PantallaDomingo()),
+                              builder: (context) => PantallaHome()),
                           (route) => false);
                     }
                   : null,
