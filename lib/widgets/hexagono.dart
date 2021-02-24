@@ -5,10 +5,9 @@ class Hexagono extends StatefulWidget {
   int color;
   String dia;
   double calorias;
+  int disabled;
 
-  int activo = 0;
-
-  Hexagono(this.color, this.dia, this.calorias);
+  Hexagono(this.color, this.dia, this.calorias, this.disabled);
 
   @override
   _HexagonoState createState() => _HexagonoState();
@@ -40,10 +39,12 @@ class _HexagonoState extends State<Hexagono> {
                               child: Image.asset(
                                   "assets/imagenes/carrodecompras.png")),
                           color: Color(0xff4FD053),
-                          onPressed: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => ListadoComidas()));
-                          },
+                          onPressed: widget.disabled == 1
+                              ? null
+                              : () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => ListadoComidas()));
+                                },
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(50)),
                         ),
@@ -62,14 +63,13 @@ class _HexagonoState extends State<Hexagono> {
             width: 120,
             child: RaisedButton(
               color: Color(0xff77D353).withOpacity(.65),
-              onPressed: widget.activo == 0
+              disabledColor: Color(widget.color),
+              onPressed: widget.disabled == 0
                   ? () {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => ListadoComidas()));
                     }
-                  : () {
-                      print("Dia " + widget.dia);
-                    },
+                  : null,
               child: Container(
                   padding: EdgeInsets.only(top: 30),
                   alignment: Alignment.center,
