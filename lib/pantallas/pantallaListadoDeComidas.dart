@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lajamasana/pantallas/pantallaInformacionDeComidas.dart';
+import 'package:lajamasana/pantallas/pantallaInformacionComida.dart';
 
 class ListadoComidas extends StatefulWidget {
   @override
@@ -180,13 +180,12 @@ class _ListadoComidasState extends State<ListadoComidas> {
         child: GridView.count(
           controller: new ScrollController(keepScrollOffset: true), //Scroll
           scrollDirection: Axis.vertical,
-          childAspectRatio: (160 /
-              250), // Tamanio de la presentaqcion del gridview (width/height)
+          childAspectRatio: (160 / 250), // Tamanio de la presentaqcion del gridview (width/height)
           crossAxisCount: 2,
           mainAxisSpacing: 20,
           crossAxisSpacing: 30,
           padding: EdgeInsets.only(top: 30, left: 20, right: 20),
-          children: [
+          children: [ //Esta lista es reemplazada por lo que se obtenga mediante la api
             Container(
               decoration: BoxDecoration(
                 border: Border.all(width: 3, color: Color(0xff77D353)),
@@ -204,7 +203,7 @@ class _ListadoComidasState extends State<ListadoComidas> {
                     color: Color(0xff4FD053),
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => PantallaDeComida()));
+                          builder: (context) => PantallaInformacionComida()));
                     },
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50)),
@@ -230,7 +229,7 @@ class _ListadoComidasState extends State<ListadoComidas> {
                     color: Color(0xff4FD053),
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => PantallaDeComida()));
+                          builder: (context) => PantallaInformacionComida()));
                     },
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50)),
