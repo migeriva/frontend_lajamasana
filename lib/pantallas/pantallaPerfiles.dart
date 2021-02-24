@@ -10,23 +10,6 @@ class PantallaPerfiles extends StatefulWidget {
 
 class _PantallaPerfilesState extends State<PantallaPerfiles> {
 
-  // //Se esta usando un servidor de prueba para que muestre solo la lista de los perfiles
-  // void getPerfiles() async {
-  //   var response = await http.get("http://10.0.2.2:3000/perfiles");
-  //   var datos = json.decode(response.body) as List;
-  //   setState(() {
-  //     _perfiles = datos;
-  //   });
-  // }
-  // //
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
-  //   this.getPerfiles();
-  //   // this.opcionPerfil();
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,52 +25,6 @@ class _PantallaPerfilesState extends State<PantallaPerfiles> {
       )
     );
   }
-
-  // void opcionPerfil() {
-  //   List<double> alturas = [80, 100, 80];
-  //   double padding = 170;
-  //
-  //   for (var i = 0; i < _perfiles.length; i++) {
-  //     _widgets.add(Container(
-  //       padding: EdgeInsets.only(top: padding),
-  //       alignment: Alignment.center,
-  //       child: RaisedButton(
-  //         color: Colors.white,
-  //         child: Container(
-  //           width: 300,
-  //           height: 100,
-  //           child: Row(
-  //             children: [
-  //               Image.asset(
-  //                 "assets/imagenes/" + _perfiles[i]["imagen"],
-  //                 height: alturas[i],
-  //                 width: 100,
-  //               ),
-  //               Padding(padding: EdgeInsets.only(right: 30)),
-  //               Text(
-  //                 _perfiles[i]["nombre"],
-  //                 style: TextStyle(
-  //                   fontWeight: FontWeight.bold,
-  //                   fontFamily: "Roboto",
-  //                   fontSize: 20,
-  //                 ),
-  //               )
-  //             ],
-  //           ),
-  //         ),
-  //         shape: RoundedRectangleBorder(
-  //           borderRadius: BorderRadius.circular(30),
-  //           side: BorderSide(color: Color(0xff77D353), width: 2),
-  //         ),
-  //         onPressed: () {
-  //           Navigator.of(context).push(MaterialPageRoute(
-  //               builder: (context) => PantallaSuscripciones()));
-  //         },
-  //       ),
-  //     ));
-  //     padding += 150;
-  //   }
-  // }
 
   Widget crearTexto() {
     return Center(
