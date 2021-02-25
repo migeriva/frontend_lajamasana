@@ -14,8 +14,8 @@ class _LoginPageState extends State<LoginPage> {
   bool _recordar = false;
 
   //Cambiar a una clase de constantes
-  TextStyle _styleLabel = TextStyle(fontSize: 17, fontFamily: "Lato", fontWeight: FontWeight.bold, color: Colors.black);
-  TextField _textField = TextField(
+  final TextStyle _styleLabel = TextStyle(fontSize: 17, fontFamily: "Lato", fontWeight: FontWeight.bold, color: Colors.black);
+  final TextField _textField = TextField(
               textAlign: TextAlign.center,
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
@@ -26,7 +26,7 @@ class _LoginPageState extends State<LoginPage> {
                     borderRadius: BorderRadius.circular(30)),
               ),
             );
-  TextField _textFieldPass = TextField(
+  final TextField _textFieldPass = TextField(
               textAlign: TextAlign.center,
               obscureText: true,
               decoration: InputDecoration(
