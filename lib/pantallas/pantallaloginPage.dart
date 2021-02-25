@@ -1,8 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:lajamasana/pantallas/pantallaPerfiles.dart';
 import 'package:lajamasana/pantallas/pantallaHome.dart';
+import 'package:lajamasana/constantes/constantes.dart';
+import 'package:http/http.dart' as http;
 
 class LoginPage extends StatefulWidget {
   @override
@@ -12,33 +12,8 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   //Funcion para validar el usuario
   bool _recordar = false;
-
-  //Cambiar a una clase de constantes
-  final TextStyle _styleLabel = TextStyle(fontSize: 17, fontFamily: "Lato", fontWeight: FontWeight.bold, color: Colors.black);
-  final TextField _textField = TextField(
-              textAlign: TextAlign.center,
-              decoration: InputDecoration(
-                enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xff77D353), width: 3),
-                    borderRadius: BorderRadius.circular(30)),
-                focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xff77D353), width: 3),
-                    borderRadius: BorderRadius.circular(30)),
-              ),
-            );
-  final TextField _textFieldPass = TextField(
-              textAlign: TextAlign.center,
-              obscureText: true,
-              decoration: InputDecoration(
-                enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xff77D353), width: 3),
-                    borderRadius: BorderRadius.circular(30)),
-                focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xff77D353), width: 3),
-                    borderRadius: BorderRadius.circular(30)),
-              ),
-            );
-
+  String _usuario = ""; //Validacion de vacios en el controlador
+  String _pass = "";
 
   @override
   Widget build(BuildContext context) {
@@ -129,18 +104,16 @@ class _LoginPageState extends State<LoginPage> {
       height: _height * .1,
       child: Text(
         "La Jama Sana",
-        style: TextStyle(
-          fontSize: 25,
-          fontWeight: FontWeight.bold,
-          fontFamily: "Lato",
-          color: Colors.green,
-        ),
+        style: Constantes.styleLogo,
       ),
     );
   }
 
   Widget usuario() {
-    
+    void prinT() {
+      print("hjola");
+    }
+
     double _width = MediaQuery.of(context).size.width;
     double _height = MediaQuery.of(context).size.height;
 
@@ -156,7 +129,7 @@ class _LoginPageState extends State<LoginPage> {
             padding: EdgeInsets.symmetric(horizontal: 10),
             child: Text(
               "Usuario:",
-              style: _styleLabel,
+              style: Constantes.styleLabel,
             ),
           ),
           //Campo para el usuario
@@ -164,7 +137,22 @@ class _LoginPageState extends State<LoginPage> {
             width: _width * .5,
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.only(right: 45, top: 18, bottom: 18, left: 10),
-            child: _textField,
+            child: TextField(
+              textAlign: TextAlign.left,
+              decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color(0xff77D353), width: 3),
+                    borderRadius: BorderRadius.circular(30)),
+                focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color(0xff77D353), width: 3),
+                    borderRadius: BorderRadius.circular(30)),
+              ),
+              onChanged: (data) {
+                setState(() {
+                  _usuario = data;
+                });
+              },
+            ),
           ),
         ],
       ),
@@ -188,7 +176,7 @@ class _LoginPageState extends State<LoginPage> {
             padding: EdgeInsets.symmetric(horizontal: 10),
             child: Text(
               "Contraseña:",
-              style: _styleLabel,
+              style: Constantes.styleLabel,
             ),
           ),
           //Campo para contra
@@ -196,7 +184,23 @@ class _LoginPageState extends State<LoginPage> {
             width: _width * .5,
             alignment: Alignment.topLeft,
             padding: EdgeInsets.only(right: 45, top: 7, bottom: 7, left: 10),
-            child: _textFieldPass,//falta poner obscuretext 
+            child: TextField(
+              textAlign: TextAlign.left,
+              obscureText: true,
+              decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color(0xff77D353), width: 3),
+                    borderRadius: BorderRadius.circular(30)),
+                focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color(0xff77D353), width: 3),
+                    borderRadius: BorderRadius.circular(30)),
+              ),
+              onChanged: (data) {
+                setState(() {
+                  _pass = data;
+                });
+              },
+            ),
           ),
         ],
       ),
@@ -213,9 +217,22 @@ class _LoginPageState extends State<LoginPage> {
       height: _height * .15,
       alignment: Alignment.center,
       child: RaisedButton(
-        onPressed: () {
-          var route = MaterialPageRoute(builder: (context) => PantallaHome());
-          Navigator.of(context).pushAndRemoveUntil(route, (r) => false);
+        onPressed: () async {
+          //Esto va en el controlador de usuarios
+
+          var response = await http.post('http://10.0.2.2:3000/validacion',
+          body: {"nombre": _usuario, "contra": _pass});
+          if (response.statusCode == 200) {
+            var route = MaterialPageRoute(builder: (context) => PantallaHome());
+            Navigator.of(context).pushAndRemoveUntil(route, (r) => false);
+          }else{
+
+            print("Error en el usuario"); //Pop up o no se que hacer xd
+
+          }
+          
+          // var route = MaterialPageRoute(builder: (context) => PantallaHome());
+          // Navigator.of(context).pushAndRemoveUntil(route, (r) => false);
           //Validacion de usuario
         },
         color: Color(0xff77D353),
@@ -225,7 +242,7 @@ class _LoginPageState extends State<LoginPage> {
         padding: EdgeInsets.symmetric(horizontal: 45, vertical: 15),
         child: Text(
           "Ingresar",
-          style: _styleLabel,
+          style: Constantes.styleLabel,
         ),
       ),
     );
@@ -251,7 +268,7 @@ class _LoginPageState extends State<LoginPage> {
         padding: EdgeInsets.symmetric(horizontal: 36, vertical: 15),
         child: Text(
           "Registrarse",
-          style:_styleLabel,
+          style: Constantes.styleLabel,
         ),
       ),
     );
