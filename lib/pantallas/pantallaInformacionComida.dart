@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lajamasana/pantallas/pantallaHome.dart';
+import 'package:lajamasana/widgets/notas.dart';
 
 class PantallaInformacionComida extends StatefulWidget {
   @override
@@ -9,6 +10,7 @@ class PantallaInformacionComida extends StatefulWidget {
 
 class _PantallaInformacionComidaState extends State<PantallaInformacionComida> {
   int _contadorComidas = 0;
+  List<Widget> _widgetsNotas = [];
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +33,7 @@ class _PantallaInformacionComidaState extends State<PantallaInformacionComida> {
         divisorPantalla(),
         informacionComida(),
         botones(),
-      ],
+      ]+_widgetsNotas,
     );
   }
 
@@ -227,7 +229,7 @@ class _PantallaInformacionComidaState extends State<PantallaInformacionComida> {
   Widget botones() {
     return Container(
       // color: Colors.cyan,
-      height: 160,
+      height: 210,
       // padding: EdgeInsets.symmetric(horizontal: 25),
       child: Column(
         children: [
@@ -242,11 +244,11 @@ class _PantallaInformacionComidaState extends State<PantallaInformacionComida> {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 25),
       // color: Colors.white,
-      height: 80,
+      height: 100,
       alignment: Alignment.center,
       child: Container(
-        height: 45,
-        width: 210,
+        height: 50,
+        width: 220,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30),
           color: Color(0xff4FD053).withOpacity(0.3),
@@ -254,23 +256,7 @@ class _PantallaInformacionComidaState extends State<PantallaInformacionComida> {
         child: Row(
           children: [
             //Boton para disminuir unidades
-            Container(
-              // color: Colors.amber,
-              alignment: Alignment.center,
-              width: 50,
-              height: 30,
-              child: FloatingActionButton(
-                heroTag: "tag1",
-                onPressed: () {
-                  if(_contadorComidas==0){ return;}
-                  setState(() {
-                    _contadorComidas--;
-                  });
-                },
-                child: Icon(Icons.remove),
-                backgroundColor: Color(0xff4FD053),
-              ),
-            ),
+            botonRemove(),
             //Contador de unidades
             Container(
               // color: Colors.green,
@@ -288,25 +274,57 @@ class _PantallaInformacionComidaState extends State<PantallaInformacionComida> {
               ),
             ),
             //Boton para aumentar unidades
-            Container(
-              // color: Colors.blue,
-              alignment: Alignment.center,
-              width: 50,
-              height: 30,
-              child: FloatingActionButton(
-                heroTag: "tag2",
-                onPressed: () {
-                  if(_contadorComidas==18){return;} //Solo para tener un limite => 18 porque son 3 comidas por dia y 6 dias de la semana
-                  setState(() {
-                    _contadorComidas++;
-                  });
-                },
-                child: Icon(Icons.add),
-                backgroundColor: Color(0xff4FD053),
-              ),
-            ),
+            botonAdd(),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget botonRemove() {
+    return Container(
+      // color: Colors.amber,
+      alignment: Alignment.center,
+      width: 50,
+      height: 30,
+      child: FloatingActionButton(
+        heroTag: "tag1",
+        onPressed: () {
+          if (_contadorComidas == 0) {
+            return;
+          }
+          setState(() {
+            _contadorComidas--;
+            _widgetsNotas.removeLast();//Primero se remueve el container de altura 50, temporal
+            _widgetsNotas.removeLast(); 
+          });
+        },
+        child: Icon(Icons.remove),
+        backgroundColor: Color(0xff4FD053),
+      ),
+    );
+  }
+
+  Widget botonAdd() {
+    return Container(
+      // color: Colors.blue,
+      alignment: Alignment.center,
+      width: 50,
+      height: 30,
+      child: FloatingActionButton(
+        heroTag: "tag2",
+        onPressed: () {
+          if (_contadorComidas == 18) {
+            return;
+          } //Solo para tener un limite => 18 porque son 3 comidas por dia y 6 dias de la semana
+          setState(() {
+            _contadorComidas++;
+            _widgetsNotas.add(NotasComida());
+            _widgetsNotas.add(Container(height: 50,)); //Temporal
+          });
+        },
+        child: Icon(Icons.add),
+        backgroundColor: Color(0xff4FD053),
       ),
     );
   }
@@ -314,15 +332,16 @@ class _PantallaInformacionComidaState extends State<PantallaInformacionComida> {
   Widget botonCalendario() {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 25),
-      height: 80,
+      height: 60,
       alignment: Alignment.center,
       child: Container(
         width: 220,
-        height: 60,
+        height: 50,
         child: RaisedButton(
           onPressed: () {
             print("Calendario");
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) => PantallaHome()));
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => PantallaHome()));
           },
           color: Color(0xff4FD053),
           shape: RoundedRectangleBorder(
@@ -334,7 +353,11 @@ class _PantallaInformacionComidaState extends State<PantallaInformacionComida> {
                 alignment: Alignment.center,
                 width: 60,
                 height: 50,
-                child: Image.asset("assets/imagenes/calendario.png", height: 40, width: 40,),
+                child: Image.asset(
+                  "assets/imagenes/calendario.png",
+                  height: 40,
+                  width: 40,
+                ),
               ),
               Container(
                 alignment: Alignment.centerLeft,
@@ -356,5 +379,4 @@ class _PantallaInformacionComidaState extends State<PantallaInformacionComida> {
       ),
     );
   }
-
 }
