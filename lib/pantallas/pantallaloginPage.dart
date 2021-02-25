@@ -13,6 +13,33 @@ class _LoginPageState extends State<LoginPage> {
   //Funcion para validar el usuario
   bool _recordar = false;
 
+  //Cambiar a una clase de constantes
+  TextStyle _styleLabel = TextStyle(fontSize: 17, fontFamily: "Lato", fontWeight: FontWeight.bold, color: Colors.black);
+  TextField _textField = TextField(
+              textAlign: TextAlign.center,
+              decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color(0xff77D353), width: 3),
+                    borderRadius: BorderRadius.circular(30)),
+                focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color(0xff77D353), width: 3),
+                    borderRadius: BorderRadius.circular(30)),
+              ),
+            );
+  TextField _textFieldPass = TextField(
+              textAlign: TextAlign.center,
+              obscureText: true,
+              decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color(0xff77D353), width: 3),
+                    borderRadius: BorderRadius.circular(30)),
+                focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color(0xff77D353), width: 3),
+                    borderRadius: BorderRadius.circular(30)),
+              ),
+            );
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,12 +48,8 @@ class _LoginPageState extends State<LoginPage> {
           children: [
             Stack(
               children: [
-                crearFondo(context),
-                crearLogo(context),
-                crearNombre(context),
-                crearCampos(context),
-                crearBotones(),
-                crearRecordatorio(),
+                crearFondo(),
+                crearPantalla(),
               ],
             )
           ],
@@ -35,7 +58,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget crearFondo(BuildContext context) {
+  Widget crearFondo() {
     return Stack(
       children: [
         Container(
@@ -58,182 +81,177 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget crearLogo(BuildContext context) {
+  Widget crearPantalla() {
+    double _width = MediaQuery.of(context).size.width;
+    double _height = MediaQuery.of(context).size.height;
+
     return Container(
-      padding: EdgeInsets.only(top: 5),
-      child: Center(
-        child: Image.asset(
-          "assets/imagenes/logo.png",
-          height: MediaQuery.of(context).size.height * 0.4,
-          width: MediaQuery.of(context).size.width * 0.4,
+      width: _width,
+      height: _height,
+      child: Column(
+        children: [
+          crearLogo(),
+          crearNombre(),
+          usuario(),
+          pass(),
+          botonIngresar(),
+          botonRegistrarse(),
+          crearRecordatorio(),
+        ],
+      ),
+    );
+  }
+
+  Widget crearLogo() {
+    double _width = MediaQuery.of(context).size.width;
+    double _height = MediaQuery.of(context).size.height;
+
+    return Container(
+      alignment: Alignment.center,
+      padding: EdgeInsets.only(top: 30),
+      width: _width,
+      height: _height * .35,
+      child: Image.asset(
+        "assets/imagenes/logo.png",
+        width: _width * .45,
+        height: _height * .45,
+      ),
+    );
+  }
+
+  Widget crearNombre() {
+    double _width = MediaQuery.of(context).size.width;
+    double _height = MediaQuery.of(context).size.height;
+
+    return Container(
+      alignment: Alignment.topCenter,
+      width: _width,
+      height: _height * .1,
+      child: Text(
+        "La Jama Sana",
+        style: TextStyle(
+          fontSize: 25,
+          fontWeight: FontWeight.bold,
+          fontFamily: "Lato",
+          color: Colors.green,
         ),
       ),
     );
   }
 
-  Widget crearNombre(BuildContext context) {
+  Widget usuario() {
+    
+    double _width = MediaQuery.of(context).size.width;
+    double _height = MediaQuery.of(context).size.height;
+
     return Container(
-      padding: EdgeInsets.only(top: 230),
-      child: Center(
-        child: Text(
-          "La Jama Sana",
-          style: TextStyle(
-            fontSize: 25,
-            fontWeight: FontWeight.bold,
-            fontFamily: "Lato", //"Times New Roman",
-            color: Colors.green,
+      width: _width,
+      height: _height * .1,
+      child: Row(
+        children: [
+          //Label de usuario
+          Container(
+            width: _width * .4,
+            alignment: Alignment.centerRight,
+            padding: EdgeInsets.symmetric(horizontal: 10),
+            child: Text(
+              "Usuario:",
+              style: _styleLabel,
+            ),
           ),
-        ),
+          //Campo para el usuario
+          Container(
+            width: _width * .5,
+            alignment: Alignment.centerLeft,
+            padding: EdgeInsets.only(right: 45, top: 18, bottom: 18, left: 10),
+            child: _textField,
+          ),
+        ],
       ),
     );
   }
 
-  Widget crearCampos(BuildContext context) {
+  Widget pass() {
+
+    double _width = MediaQuery.of(context).size.width;
+    double _height = MediaQuery.of(context).size.height;
+
     return Container(
-      padding: EdgeInsets.only(top: 340),
-      child: Center(
-        child: Column(
-          children: <Widget>[
-            campoUsuario(),
-            Padding(padding: EdgeInsets.all(10)),
-            campoContra(),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget campoUsuario() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-          // padding: EdgeInsets.only(top: 7),
-          child: Text(
-            "Usuario:    ",
-            style: TextStyle(
-              fontSize: 17,
-              fontFamily: "Lato",
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
+      width: _width,
+      height: _height * .07,
+      child: Row(
+        children: [
+          //Label contra
+          Container(
+            width: _width * .4,
+            alignment: Alignment.centerRight,
+            padding: EdgeInsets.symmetric(horizontal: 10),
+            child: Text(
+              "Contraseña:",
+              style: _styleLabel,
             ),
           ),
-        ),
-        Padding(padding: EdgeInsets.only(left: 35)),
-        Container(
-          alignment: Alignment.topCenter,
-          padding: EdgeInsets.only(left: 20),
-          width: 150,
-          height: 30,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(50),
-              border: Border.all(
-                color: Color(0xff77D353),
-                width: 3,
-              )),
-          child: TextField(
-            decoration: InputDecoration(
-              focusedBorder: null,
-              disabledBorder: null,
-            ),
+          //Campo para contra
+          Container(
+            width: _width * .5,
+            alignment: Alignment.topLeft,
+            padding: EdgeInsets.only(right: 45, top: 7, bottom: 7, left: 10),
+            child: _textFieldPass,//falta poner obscuretext 
           ),
-        )
-      ],
-    );
-  }
-
-  Widget campoContra() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-          // padding: EdgeInsets.only(top: 7),
-          child: Text(
-            "Contraseña: ",
-            style: TextStyle(
-              fontSize: 17,
-              fontFamily: "Lato",
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-            ),
-          ),
-        ),
-        Padding(padding: EdgeInsets.only(left: 20)),
-        Container(
-          alignment: Alignment.topCenter,
-          padding: EdgeInsets.only(left: 20),
-          width: 150,
-          height: 30,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(50),
-              border: Border.all(
-                color: Color(0xff77D353),
-                width: 3,
-              )),
-          child: TextField(
-            keyboardType: TextInputType.visiblePassword,
-            obscureText: true,
-          ),
-        )
-      ],
-    );
-  }
-
-  Widget crearBotones() {
-    return Container(
-      padding: EdgeInsets.only(top: 460),
-      child: Center(
-        child: Column(
-          children: <Widget>[
-            botonIngresar(),
-            Padding(padding: EdgeInsets.all(10)),
-            botonRegistrarse(),
-          ],
-        ),
+        ],
       ),
     );
   }
 
   Widget botonIngresar() {
-    return RaisedButton(
-      onPressed: () {
-        var route = MaterialPageRoute(builder: (context)=> PantallaHome());
-        Navigator.of(context).pushAndRemoveUntil(route, (r)=>false);
-        //Validacion de usuario
-      },
-      color: Color(0xff77D353),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(40),
-      ),
-      padding: EdgeInsets.symmetric(horizontal: 45, vertical: 15),
-      child: Text(
-        "Ingresar",
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 17,
-          fontFamily: "Roboto",
+
+    double _width = MediaQuery.of(context).size.width;
+    double _height = MediaQuery.of(context).size.height;
+
+    return Container(
+      width: _width,
+      height: _height * .15,
+      alignment: Alignment.center,
+      child: RaisedButton(
+        onPressed: () {
+          var route = MaterialPageRoute(builder: (context) => PantallaHome());
+          Navigator.of(context).pushAndRemoveUntil(route, (r) => false);
+          //Validacion de usuario
+        },
+        color: Color(0xff77D353),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(40),
+        ),
+        padding: EdgeInsets.symmetric(horizontal: 45, vertical: 15),
+        child: Text(
+          "Ingresar",
+          style: _styleLabel,
         ),
       ),
     );
   }
 
   Widget botonRegistrarse() {
-    return RaisedButton(
-      onPressed: () {
-        var route = MaterialPageRoute(builder: (c) => PantallaPerfiles());
-        Navigator.of(context).push(route);
-      },
-      color: Color(0xff77D353),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(40),
-      ),
-      padding: EdgeInsets.symmetric(horizontal: 36, vertical: 15),
-      child: Text(
-        "Registrarse",
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 17,
-          fontFamily: "Roboto",
+    double _width = MediaQuery.of(context).size.width;
+    double _height = MediaQuery.of(context).size.height;
+
+    return Container(
+      width: _width,
+      height: _height * .1,
+      alignment: Alignment.center,
+      child: RaisedButton(
+        onPressed: () {
+          var route = MaterialPageRoute(builder: (c) => PantallaPerfiles());
+          Navigator.of(context).push(route);
+        },
+        color: Color(0xff77D353),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(40),
+        ),
+        padding: EdgeInsets.symmetric(horizontal: 36, vertical: 15),
+        child: Text(
+          "Registrarse",
+          style:_styleLabel,
         ),
       ),
     );
@@ -241,10 +259,14 @@ class _LoginPageState extends State<LoginPage> {
 
   //En veremos xdxd
   Widget crearRecordatorio() {
+
+    double _width = MediaQuery.of(context).size.width;
+    double _height = MediaQuery.of(context).size.height;
+
     return Container(
-      padding: EdgeInsets.only(top: 600),
-      child: Center(
-          child: Row(
+      width: _width,
+      height: _height * .1,
+      child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Checkbox(
@@ -264,7 +286,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
         ],
-      )),
+      ),
     );
   }
 }
