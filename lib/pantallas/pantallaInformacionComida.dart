@@ -14,6 +14,7 @@ class _PantallaInformacionComidaState extends State<PantallaInformacionComida> {
 
   @override
   Widget build(BuildContext context) {
+
     return Container(
       child: Scaffold(
         body: Container(
@@ -24,9 +25,11 @@ class _PantallaInformacionComidaState extends State<PantallaInformacionComida> {
         ),
       ),
     );
+    
   }
 
   Widget crearPantalla() {
+
     return ListView(
       children: [
         presentacionComida(),
@@ -35,19 +38,18 @@ class _PantallaInformacionComidaState extends State<PantallaInformacionComida> {
         botones(),
       ]+_widgetsNotas,
     );
+
   }
 
   //Revisar las alturas y los anchos para posibles pantallas
   Widget presentacionComida() {
+
     return Container(
-      // width: MediaQuery.of(context).size.width,
       height: 250,
-      // color: Colors.amber,
       child: Column(
         children: [
           Container(
             height: 50,
-            // color: Colors.blue,
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.only(left: 20),
             child: Text(
@@ -62,7 +64,6 @@ class _PantallaInformacionComidaState extends State<PantallaInformacionComida> {
           ),
           Container(
             height: 200,
-            // color: Colors.green,
             alignment: Alignment.center,
             child: Image.asset(
               "assets/imagenes/calysupremo.png",
@@ -73,16 +74,18 @@ class _PantallaInformacionComidaState extends State<PantallaInformacionComida> {
         ],
       ),
     );
+
   }
 
   Widget divisorPantalla() {
+
     return Divider(color: Color(0xff4FD053), height: 20, thickness: 3);
+
   }
 
   Widget informacionComida() {
+
     return Container(
-      // color: Colors.orange,
-      // padding: EdgeInsets.symmetric(horizontal: 20), // Mver a gusto
       height: 160,
       child: Column(
         children: [
@@ -224,13 +227,13 @@ class _PantallaInformacionComidaState extends State<PantallaInformacionComida> {
         ],
       ),
     );
+
   }
 
   Widget botones() {
+
     return Container(
-      // color: Colors.cyan,
       height: 210,
-      // padding: EdgeInsets.symmetric(horizontal: 25),
       child: Column(
         children: [
           botonContador(),
@@ -238,28 +241,25 @@ class _PantallaInformacionComidaState extends State<PantallaInformacionComida> {
         ],
       ),
     );
+
   }
 
   Widget botonContador() {
+
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 25),
-      // color: Colors.white,
       height: 100,
       alignment: Alignment.center,
       child: Container(
         height: 50,
-        width: 220,
+        width: 210,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30),
           color: Color(0xff4FD053).withOpacity(0.3),
         ),
         child: Row(
           children: [
-            //Boton para disminuir unidades
             botonRemove(),
-            //Contador de unidades
             Container(
-              // color: Colors.green,
               alignment: Alignment.center,
               width: 110,
               height: 30,
@@ -273,17 +273,17 @@ class _PantallaInformacionComidaState extends State<PantallaInformacionComida> {
                 ),
               ),
             ),
-            //Boton para aumentar unidades
             botonAdd(),
           ],
         ),
       ),
     );
+
   }
 
   Widget botonRemove() {
+
     return Container(
-      // color: Colors.amber,
       alignment: Alignment.center,
       width: 50,
       height: 30,
@@ -303,11 +303,12 @@ class _PantallaInformacionComidaState extends State<PantallaInformacionComida> {
         backgroundColor: Color(0xff4FD053),
       ),
     );
+
   }
 
   Widget botonAdd() {
+
     return Container(
-      // color: Colors.blue,
       alignment: Alignment.center,
       width: 50,
       height: 30,
@@ -327,9 +328,11 @@ class _PantallaInformacionComidaState extends State<PantallaInformacionComida> {
         backgroundColor: Color(0xff4FD053),
       ),
     );
+
   }
 
   Widget botonCalendario() {
+
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 25),
       height: 60,
@@ -378,5 +381,7 @@ class _PantallaInformacionComidaState extends State<PantallaInformacionComida> {
         ),
       ),
     );
+
   }
+  
 }
