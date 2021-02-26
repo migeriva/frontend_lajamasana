@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:lajamasana/api/usuario_controller.dart';
 import 'package:lajamasana/pantallas/pantallaPerfiles.dart';
 import 'package:lajamasana/pantallas/pantallaHome.dart';
 import 'package:lajamasana/constantes/constantes.dart';
-import 'package:http/http.dart' as http;
 
 class LoginPage extends StatefulWidget {
   @override
@@ -34,29 +34,35 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget crearFondo() {
+
+    double _width = MediaQuery.of(context).size.width;
+    double _height= MediaQuery.of(context).size.height;  
+
     return Stack(
       children: [
         Container(
-          height: MediaQuery.of(context).size.height * 0.7,
-          width: MediaQuery.of(context).size.width,
+          height: _height * 0.7,
+          width: _width,
           color: Color(0xff77D353).withOpacity(0.51),
         ),
         Positioned(
-          top: 290,
+          top: _height*.42,//290,
           child: ClipOval(
             child: Container(
               alignment: Alignment.topCenter,
-              height: MediaQuery.of(context).size.height * 0.5,
-              width: MediaQuery.of(context).size.width,
+              height: _height * 0.5,
+              width: _width,
               color: Colors.white,
             ),
           ),
         )
       ],
     );
+
   }
 
   Widget crearPantalla() {
+
     double _width = MediaQuery.of(context).size.width;
     double _height = MediaQuery.of(context).size.height;
 
@@ -75,9 +81,11 @@ class _LoginPageState extends State<LoginPage> {
         ],
       ),
     );
+
   }
 
   Widget crearLogo() {
+
     double _width = MediaQuery.of(context).size.width;
     double _height = MediaQuery.of(context).size.height;
 
@@ -92,9 +100,11 @@ class _LoginPageState extends State<LoginPage> {
         height: _height * .45,
       ),
     );
+
   }
 
   Widget crearNombre() {
+
     double _width = MediaQuery.of(context).size.width;
     double _height = MediaQuery.of(context).size.height;
 
@@ -107,12 +117,10 @@ class _LoginPageState extends State<LoginPage> {
         style: Constantes.styleLogo,
       ),
     );
+
   }
 
   Widget usuario() {
-    void prinT() {
-      print("hjola");
-    }
 
     double _width = MediaQuery.of(context).size.width;
     double _height = MediaQuery.of(context).size.height;
@@ -122,7 +130,6 @@ class _LoginPageState extends State<LoginPage> {
       height: _height * .1,
       child: Row(
         children: [
-          //Label de usuario
           Container(
             width: _width * .4,
             alignment: Alignment.centerRight,
@@ -132,7 +139,6 @@ class _LoginPageState extends State<LoginPage> {
               style: Constantes.styleLabel,
             ),
           ),
-          //Campo para el usuario
           Container(
             width: _width * .5,
             alignment: Alignment.centerLeft,
@@ -157,6 +163,7 @@ class _LoginPageState extends State<LoginPage> {
         ],
       ),
     );
+
   }
 
   Widget pass() {
@@ -205,6 +212,7 @@ class _LoginPageState extends State<LoginPage> {
         ],
       ),
     );
+
   }
 
   Widget botonIngresar() {
@@ -218,22 +226,14 @@ class _LoginPageState extends State<LoginPage> {
       alignment: Alignment.center,
       child: RaisedButton(
         onPressed: () async {
-          //Esto va en el controlador de usuarios
 
-          var response = await http.post('http://10.0.2.2:3000/validacion',
-          body: {"nombre": _usuario, "contra": _pass});
-          if (response.statusCode == 200) {
+          bool valido = await UsuarioRetriever.validarUsuario(_usuario, _pass);
+          if (valido) {
             var route = MaterialPageRoute(builder: (context) => PantallaHome());
             Navigator.of(context).pushAndRemoveUntil(route, (r) => false);
           }else{
-
             print("Error en el usuario"); //Pop up o no se que hacer xd
-
           }
-          
-          // var route = MaterialPageRoute(builder: (context) => PantallaHome());
-          // Navigator.of(context).pushAndRemoveUntil(route, (r) => false);
-          //Validacion de usuario
         },
         color: Color(0xff77D353),
         shape: RoundedRectangleBorder(
@@ -246,9 +246,11 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+
   }
 
   Widget botonRegistrarse() {
+
     double _width = MediaQuery.of(context).size.width;
     double _height = MediaQuery.of(context).size.height;
 
@@ -272,6 +274,7 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+
   }
 
   //En veremos xdxd
@@ -305,5 +308,7 @@ class _LoginPageState extends State<LoginPage> {
         ],
       ),
     );
+
   }
+  
 }
