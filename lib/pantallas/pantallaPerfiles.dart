@@ -27,9 +27,12 @@ class _PantallaPerfilesState extends State<PantallaPerfiles> {
   }
 
   Widget crearTexto() {
+
+    double _height = MediaQuery.of(context).size.height;
+
     return Center(
         child: Padding(
-      padding: EdgeInsets.only(top: 80),
+      padding: EdgeInsets.only(top: _height*.1),
       child: Text(
         "¿Cuál es tu objetivo?",
         style: TextStyle(
@@ -42,20 +45,24 @@ class _PantallaPerfilesState extends State<PantallaPerfiles> {
   }
 
   Widget crearFondo(BuildContext context) {
+
+    double _width = MediaQuery.of(context).size.width;
+    double _height= MediaQuery.of(context).size.height;  
+
     return Stack(
       children: [
         Container(
-          height: MediaQuery.of(context).size.height * 0.6,
-          width: MediaQuery.of(context).size.width,
+          height: _height * 0.6,
+          width: _width,
           color: Color(0xff77D353).withOpacity(0.51),
         ),
         Positioned(
-          top: 240,
+          top: _height*.33,//240,
           child: ClipOval(
             child: Container(
               alignment: Alignment.topCenter,
-              height: MediaQuery.of(context).size.height * 0.45,
-              width: MediaQuery.of(context).size.width,
+              height: _height * 0.45,
+              width: _width,
               color: Colors.white,
             ),
           ),
@@ -66,8 +73,9 @@ class _PantallaPerfilesState extends State<PantallaPerfiles> {
 
   Widget crearPantalla(List<Perfiles> perfiles){
 
+    double _height= MediaQuery.of(context).size.height;
     List<double> alturas = [80, 100, 80];
-    double padding = 170;
+    double padding = _height*.25;
     List<Widget> widgets = [crearFondo(context), crearTexto()];
     for(int i=0; i<perfiles.length; i++){
       widgets.add(
