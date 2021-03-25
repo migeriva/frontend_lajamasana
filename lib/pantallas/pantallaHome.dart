@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lajamasana/widgets/hexagono.dart';
-import 'package:lajamasana/pantallas/pantallaloginPage.dart';
+import 'package:lajamasana/pantallas/pantallaLogin.dart';
 
 class PantallaHome extends StatefulWidget {
   @override
@@ -38,7 +38,6 @@ class _PantallaHomeState extends State<PantallaHome> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         title: Padding(
@@ -84,13 +83,11 @@ class _PantallaHomeState extends State<PantallaHome> {
       ),
       body: crearHome(),
     );
-
   }
 
   Widget crearFondo(BuildContext context) {
-
-    double _height= MediaQuery.of(context).size.height;
-    double _width= MediaQuery.of(context).size.width;
+    double _height = MediaQuery.of(context).size.height;
+    double _width = MediaQuery.of(context).size.width;
 
     return Stack(
       children: [
@@ -100,7 +97,7 @@ class _PantallaHomeState extends State<PantallaHome> {
           color: Color(0xff77D353).withOpacity(0.51),
         ),
         Positioned(
-          top: _height*.08,
+          top: _height * .08,
           child: ClipOval(
             child: Container(
               alignment: Alignment.topCenter,
@@ -112,11 +109,9 @@ class _PantallaHomeState extends State<PantallaHome> {
         )
       ],
     );
-    
   }
 
   Widget crearHome() {
-
     List<Widget> widgets = [crearFondo(context)];
 
     int diaActual = DateTime.now().add(Duration(hours: -5)).weekday;
@@ -133,7 +128,6 @@ class _PantallaHomeState extends State<PantallaHome> {
   }
 
   List<Widget> homeDomingo() {
-
     List<Widget> widgets = [];
     for (int i = 0; i < dias.length; i++) {
       List<double> p = posiciones[posicion[i]];
@@ -146,12 +140,10 @@ class _PantallaHomeState extends State<PantallaHome> {
       );
     }
     return widgets;
-
   }
 
 //Funcion rara, revisar en grupo
   List<Widget> homeSemana(int dia) {
-
     List<Widget> widgets = [];
 
     widgets.add(Padding(
@@ -199,6 +191,5 @@ class _PantallaHomeState extends State<PantallaHome> {
     ));
 
     return widgets;
-
   }
 }
