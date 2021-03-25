@@ -9,23 +9,35 @@ class ListadoComidas extends StatefulWidget {
 
 class _ListadoComidasState extends State<ListadoComidas> {
   List<String> _horarios = ["Desayuno", "Almuerzo", "Merienda"];
-
-  String _hint = "Almuerzo"; //Cambiar para que sea de acuerdo a la hora del dia actual
+  Color colorFondo = Color(0xff77D353).withOpacity(.06);
+  String _hint = "Almuerzo"; //Cambiar de acuerdo a la hora del dia actual
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: crearContenido(),
+      body: crearContenido(context),
     );
   }
 
-  Widget crearContenido() {
+  Widget crearContenido(BuildContext context) {
+    double _height = MediaQuery.of(context).size.height;
     return ListView(
       children: [
-        contenedorCabecera(),
-        contenedorDropdown(),
-        menu(),
-        listadoComidas(),
+        Container(
+          child: contenedorCabecera(),
+          height: _height * .1,
+        ),
+        Container(
+          child: contenedorDropdown(),
+          height: _height * .1,
+        ),
+        Container(
+          child: Column(
+            children: [menu(), listadoComidas(_height * .765)],
+          ),
+          height: _height * .765,
+          color: Color(0xff77D353).withOpacity(.06),
+        ),
       ],
     );
   }
@@ -77,7 +89,6 @@ class _ListadoComidasState extends State<ListadoComidas> {
 
   Widget contenedorDropdown() {
     return Container(
-      // alignment: Alignment.topLeft,
       padding: EdgeInsets.symmetric(horizontal: 20),
       width: MediaQuery.of(context).size.width,
       height: 70,
@@ -95,7 +106,6 @@ class _ListadoComidasState extends State<ListadoComidas> {
               ),
             ),
           ),
-          // Padding(padding: EdgeInsets.only(top: 20) ),
           DropdownButton(
             isExpanded: true,
             items: crearItems(),
@@ -134,7 +144,6 @@ class _ListadoComidasState extends State<ListadoComidas> {
 
   List<DropdownMenuItem> crearItems() {
     List<DropdownMenuItem> items = [];
-
     for (int i = 0; i < _horarios.length; i++) {
       items.add(DropdownMenuItem(
         value: _horarios[i],
@@ -148,14 +157,13 @@ class _ListadoComidasState extends State<ListadoComidas> {
         ),
       ));
     }
-
     return items;
   }
 
   Widget menu() {
     return Container(
       width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.only(left: 20, bottom: 20, top: 10),
+      padding: EdgeInsets.only(left: 20, bottom: 15, top: 15),
       color: Color(0xff77D353).withOpacity(.06),
       alignment: Alignment.centerLeft,
       child: Text(
@@ -171,74 +179,70 @@ class _ListadoComidasState extends State<ListadoComidas> {
     );
   }
 
-  Widget listadoComidas() {
+  Widget listadoComidas(double size) {
     return Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        // padding: EdgeInsets.only(bottom: 60),
-        color: Color(0xff77D353).withOpacity(.06),
-        child: GridView.count(
-          controller: new ScrollController(keepScrollOffset: true), //Scroll
-          scrollDirection: Axis.vertical,
-          childAspectRatio: (160 / 250), // Tamanio de la presentaqcion del gridview (width/height)
-          crossAxisCount: 2,
-          mainAxisSpacing: 20,
-          crossAxisSpacing: 30,
-          padding: EdgeInsets.only(top: 30, left: 20, right: 20),
-          children: [ //Esta lista es reemplazada por lo que se obtenga mediante la api
-            Container(
-              decoration: BoxDecoration(
-                border: Border.all(width: 3, color: Color(0xff77D353)),
-                borderRadius: BorderRadius.circular(30),
-              ),
-              child: Column(
-                children: [
-                  Image.asset("assets/imagenes/calysupremo.png"),
-                  Text("CalySupremo",
-                      style: TextStyle(fontFamily: "Roboto", fontSize: 17)),
-                  Padding(
-                    padding: EdgeInsets.only(top: 10),
-                  ),
-                  RaisedButton(
-                    color: Color(0xff4FD053),
-                    onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => PantallaInformacionComida()));
-                    },
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50)),
-                    child: Text("Ver mas"),
-                  ),
-                ],
-              ),
+      padding: EdgeInsets.symmetric(horizontal: 20),
+      height: size * .898, //Arreglar la vainita de los tamaños
+      child: GridView.count(
+        scrollDirection: Axis.vertical,
+        childAspectRatio: (150 / 210), //Para mover el tamaño (w/h)
+        crossAxisCount: 2,
+        mainAxisSpacing: 15,
+        crossAxisSpacing: 15,
+        children: [
+          cardComida("assets/imagenes/calysupremo.png", "CalySupremo"),
+          cardComida("assets/imagenes/rollycaly.png", "RollyCaly"),
+          cardComida("assets/imagenes/calysupremo.png", "CalySupremo"),
+          cardComida("assets/imagenes/rollycaly.png", "RollyCaly"),
+        ],
+      ),
+    );
+  }
+
+  //Funcion para crear las cards para las comidas obtenidas
+  Widget cardComida(String imagen, String nombre) {
+    return Card(
+      shadowColor: colorFondo,
+      color: colorFondo,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(30),
+        side: BorderSide(color: Color(0xff77D353), width: 3),
+      ),
+      child: Column(
+        children: [
+          Center(
+            child: Image.asset(
+              imagen,
+              scale: 3.5,
             ),
-            Container(
-              decoration: BoxDecoration(
-                border: Border.all(width: 3, color: Color(0xff77D353)),
-                borderRadius: BorderRadius.circular(30),
-              ),
-              child: Column(
-                children: [
-                  Image.asset("assets/imagenes/rollycaly.png"),
-                  Text("Rollycaly",
-                      style: TextStyle(fontFamily: "Roboto", fontSize: 17)),
-                  Padding(
-                    padding: EdgeInsets.only(top: 10),
-                  ),
-                  RaisedButton(
-                    color: Color(0xff4FD053),
-                    onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => PantallaInformacionComida()));
-                    },
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50)),
-                    child: Text("Ver mas"),
-                  ),
-                ],
-              ),
+          ),
+          Center(
+            child: Text(
+              "Nombre del platillo",
+              textScaleFactor: 1.1,
             ),
-          ],
-        ));
+          ),
+          Container(
+            padding: EdgeInsets.only(top: 10),
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => PantallaInformacionComida()));
+              },
+              child: Text(
+                "Ver más",
+                style: TextStyle(color: Colors.black),
+              ),
+              style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Color(0xff4FD053)),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50)))),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

@@ -34,9 +34,8 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget crearFondo() {
-
     double _width = MediaQuery.of(context).size.width;
-    double _height= MediaQuery.of(context).size.height;  
+    double _height = MediaQuery.of(context).size.height;
 
     return Stack(
       children: [
@@ -46,7 +45,7 @@ class _LoginPageState extends State<LoginPage> {
           color: Color(0xff77D353).withOpacity(0.51),
         ),
         Positioned(
-          top: _height*.42,//290,
+          top: _height * .42, //290,
           child: ClipOval(
             child: Container(
               alignment: Alignment.topCenter,
@@ -58,11 +57,9 @@ class _LoginPageState extends State<LoginPage> {
         )
       ],
     );
-
   }
 
   Widget crearPantalla() {
-
     double _width = MediaQuery.of(context).size.width;
     double _height = MediaQuery.of(context).size.height;
 
@@ -81,11 +78,9 @@ class _LoginPageState extends State<LoginPage> {
         ],
       ),
     );
-
   }
 
   Widget crearLogo() {
-
     double _width = MediaQuery.of(context).size.width;
     double _height = MediaQuery.of(context).size.height;
 
@@ -100,11 +95,9 @@ class _LoginPageState extends State<LoginPage> {
         height: _height * .45,
       ),
     );
-
   }
 
   Widget crearNombre() {
-
     double _width = MediaQuery.of(context).size.width;
     double _height = MediaQuery.of(context).size.height;
 
@@ -117,11 +110,9 @@ class _LoginPageState extends State<LoginPage> {
         style: Constantes.styleLogo,
       ),
     );
-
   }
 
   Widget usuario() {
-
     double _width = MediaQuery.of(context).size.width;
     double _height = MediaQuery.of(context).size.height;
 
@@ -144,7 +135,7 @@ class _LoginPageState extends State<LoginPage> {
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.only(right: 45, top: 18, bottom: 18, left: 10),
             child: TextField(
-              textAlign: TextAlign.left,
+              textAlign: TextAlign.center,
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Color(0xff77D353), width: 3),
@@ -163,11 +154,9 @@ class _LoginPageState extends State<LoginPage> {
         ],
       ),
     );
-
   }
 
   Widget pass() {
-
     double _width = MediaQuery.of(context).size.width;
     double _height = MediaQuery.of(context).size.height;
 
@@ -192,7 +181,7 @@ class _LoginPageState extends State<LoginPage> {
             alignment: Alignment.topLeft,
             padding: EdgeInsets.only(right: 45, top: 7, bottom: 7, left: 10),
             child: TextField(
-              textAlign: TextAlign.left,
+              textAlign: TextAlign.center,
               obscureText: true,
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
@@ -212,11 +201,9 @@ class _LoginPageState extends State<LoginPage> {
         ],
       ),
     );
-
   }
 
   Widget botonIngresar() {
-
     double _width = MediaQuery.of(context).size.width;
     double _height = MediaQuery.of(context).size.height;
 
@@ -226,12 +213,11 @@ class _LoginPageState extends State<LoginPage> {
       alignment: Alignment.center,
       child: RaisedButton(
         onPressed: () async {
-
           bool valido = await UsuarioRetriever.validarUsuario(_usuario, _pass);
           if (valido) {
             var route = MaterialPageRoute(builder: (context) => PantallaHome());
             Navigator.of(context).pushAndRemoveUntil(route, (r) => false);
-          }else{
+          } else {
             print("Error en el usuario"); //Pop up o no se que hacer xd
           }
         },
@@ -246,11 +232,9 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
-
   }
 
   Widget botonRegistrarse() {
-
     double _width = MediaQuery.of(context).size.width;
     double _height = MediaQuery.of(context).size.height;
 
@@ -274,12 +258,10 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
-
   }
 
   //En veremos xdxd
   Widget crearRecordatorio() {
-
     double _width = MediaQuery.of(context).size.width;
     double _height = MediaQuery.of(context).size.height;
 
@@ -308,7 +290,5 @@ class _LoginPageState extends State<LoginPage> {
         ],
       ),
     );
-
   }
-  
 }
