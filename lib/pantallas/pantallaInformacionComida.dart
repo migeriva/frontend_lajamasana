@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lajamasana/pantallas/pantallaHome.dart';
 import 'package:lajamasana/widgets/notas.dart';
+import 'package:lajamasana/constantes/constantes.dart';
 
 class PantallaInformacionComida extends StatefulWidget {
   @override
@@ -14,7 +15,6 @@ class _PantallaInformacionComidaState extends State<PantallaInformacionComida> {
 
   @override
   Widget build(BuildContext context) {
-
     return Container(
       child: Scaffold(
         body: Container(
@@ -25,25 +25,22 @@ class _PantallaInformacionComidaState extends State<PantallaInformacionComida> {
         ),
       ),
     );
-    
   }
 
   Widget crearPantalla() {
-
     return ListView(
       children: [
-        presentacionComida(),
-        divisorPantalla(),
-        informacionComida(),
-        botones(),
-      ]+_widgetsNotas,
+            presentacionComida(),
+            divisorPantalla(),
+            informacionComida(),
+            botones(),
+          ] +
+          _widgetsNotas,
     );
-
   }
 
   //Revisar las alturas y los anchos para posibles pantallas
   Widget presentacionComida() {
-
     return Container(
       height: 250,
       child: Column(
@@ -74,17 +71,13 @@ class _PantallaInformacionComidaState extends State<PantallaInformacionComida> {
         ],
       ),
     );
-
   }
 
   Widget divisorPantalla() {
-
     return Divider(color: Color(0xff4FD053), height: 20, thickness: 3);
-
   }
 
   Widget informacionComida() {
-
     return Container(
       height: 160,
       child: Column(
@@ -227,11 +220,9 @@ class _PantallaInformacionComidaState extends State<PantallaInformacionComida> {
         ],
       ),
     );
-
   }
 
   Widget botones() {
-
     return Container(
       height: 210,
       child: Column(
@@ -241,11 +232,9 @@ class _PantallaInformacionComidaState extends State<PantallaInformacionComida> {
         ],
       ),
     );
-
   }
 
   Widget botonContador() {
-
     return Container(
       height: 100,
       alignment: Alignment.center,
@@ -278,11 +267,9 @@ class _PantallaInformacionComidaState extends State<PantallaInformacionComida> {
         ),
       ),
     );
-
   }
 
   Widget botonRemove() {
-
     return Container(
       alignment: Alignment.center,
       width: 50,
@@ -295,19 +282,18 @@ class _PantallaInformacionComidaState extends State<PantallaInformacionComida> {
           }
           setState(() {
             _contadorComidas--;
-            _widgetsNotas.removeLast();//Primero se remueve el container de altura 50, temporal
-            _widgetsNotas.removeLast(); 
+            _widgetsNotas
+                .removeLast(); //Primero se remueve el container de altura 50, temporal
+            _widgetsNotas.removeLast();
           });
         },
         child: Icon(Icons.remove),
         backgroundColor: Color(0xff4FD053),
       ),
     );
-
   }
 
   Widget botonAdd() {
-
     return Container(
       alignment: Alignment.center,
       width: 50,
@@ -321,18 +307,18 @@ class _PantallaInformacionComidaState extends State<PantallaInformacionComida> {
           setState(() {
             _contadorComidas++;
             _widgetsNotas.add(NotasComida());
-            _widgetsNotas.add(Container(height: 50,)); //Temporal
+            _widgetsNotas.add(Container(
+              height: 50,
+            )); //Temporal
           });
         },
         child: Icon(Icons.add),
         backgroundColor: Color(0xff4FD053),
       ),
     );
-
   }
 
   Widget botonCalendario() {
-
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 25),
       height: 60,
@@ -340,16 +326,12 @@ class _PantallaInformacionComidaState extends State<PantallaInformacionComida> {
       child: Container(
         width: 220,
         height: 50,
-        child: RaisedButton(
+        child: ElevatedButton(
           onPressed: () {
-            print("Calendario");
             Navigator.of(context)
                 .push(MaterialPageRoute(builder: (context) => PantallaHome()));
           },
-          color: Color(0xff4FD053),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30.0),
-          ),
+          style: Constantes.styleButton(0xff4FD053),
           child: Row(
             children: [
               Container(
@@ -381,7 +363,5 @@ class _PantallaInformacionComidaState extends State<PantallaInformacionComida> {
         ),
       ),
     );
-
   }
-  
 }

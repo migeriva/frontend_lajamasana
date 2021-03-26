@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lajamasana/api/suscripcion_controller.dart';
+import 'package:lajamasana/constantes/constantes.dart';
 import 'package:lajamasana/modelos/suscripcion_model.dart';
 import 'package:lajamasana/pantallas/pantallaHome.dart';
 
@@ -9,7 +10,6 @@ class PantallaSuscripciones extends StatefulWidget {
 }
 
 class _PantallaSuscripcionesState extends State<PantallaSuscripciones> {
-  
   int _selectedRadio = 0;
 
   @override
@@ -18,14 +18,15 @@ class _PantallaSuscripcionesState extends State<PantallaSuscripciones> {
         body: ListView(
       children: [
         crearTexto(),
-        Container(height: MediaQuery.of(context).size.height*0.755, child: crearSuscripciones()),
+        Container(
+            height: MediaQuery.of(context).size.height * 0.755,
+            child: crearSuscripciones()),
         crearBoton()
       ],
     ));
   }
 
   Widget crearTexto() {
-    
     double _width = MediaQuery.of(context).size.width;
     double _height = MediaQuery.of(context).size.height;
 
@@ -45,67 +46,62 @@ class _PantallaSuscripcionesState extends State<PantallaSuscripciones> {
   }
 
   Widget crearBoton() {
-
     double _width = MediaQuery.of(context).size.width;
     double _height = MediaQuery.of(context).size.height;
 
     return Container(
-
-      width: _width,
-      height: _height*.13,
-      padding: EdgeInsets.symmetric(horizontal: 100, vertical:20),
-      child: RaisedButton(
-        onPressed: _selectedRadio==0?null:(){
-          Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => PantallaHome()),(route) => false);
-        },
-        disabledColor: Color(0xff77D353).withOpacity(0.5),
-        color: Color(0xff77D353),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30)
-        ),
-        child: Text( 
-          "Suscribirse",
-           style: TextStyle(
-             fontSize: 20,
-             fontFamily: "Roboto",
+        width: _width,
+        height: _height * .13,
+        padding: EdgeInsets.symmetric(horizontal: 100, vertical: 20),
+        child: ElevatedButton(
+          onPressed: _selectedRadio == 0
+              ? null
+              : () {
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(builder: (context) => PantallaHome()),
+                      (route) => false);
+                },
+          style: Constantes.styleButton(0xff77D353),
+          child: Text(
+            "Suscribirse",
+            style: TextStyle(
+                fontSize: 20,
+                fontFamily: "Roboto",
+                color: _selectedRadio == 0 ? Colors.white : Colors.black),
           ),
-        ),
-      )
-    );
-
+        ));
   }
 
   Widget crearSuscripciones() {
-
     return FutureBuilder(
-
       future: SuscripcionController.getSuscripciones(),
       initialData: null,
-      builder: (BuildContext context, AsyncSnapshot<List<Suscripcion>> snapshot){
-        if( snapshot.connectionState==ConnectionState.waiting ){
+      builder:
+          (BuildContext context, AsyncSnapshot<List<Suscripcion>> snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(child: CircularProgressIndicator());
-        }else {
-          return pantallaSuscripciones( snapshot.data );
+        } else {
+          return pantallaSuscripciones(snapshot.data);
         }
       },
-
     );
-
-
   }
 
   Widget pantallaSuscripciones(List<Suscripcion> suscripciones) {
-
     List<Widget> _widgets = [];
     Color inhabilitado = Color(0xff969FAA);
 
     for (int i = 0; i < suscripciones.length; i++) {
-
-      Color habilitado = Color(int.parse(suscripciones[i].color)).withOpacity(.5);
+      Color habilitado =
+          Color(int.parse(suscripciones[i].color)).withOpacity(.5);
       _widgets.add(Padding(
         padding: EdgeInsets.only(top: 10),
         child: Container(
-          color: _selectedRadio==0?habilitado:_selectedRadio==i+1?habilitado:inhabilitado,
+          color: _selectedRadio == 0
+              ? habilitado
+              : _selectedRadio == i + 1
+                  ? habilitado
+                  : inhabilitado,
           height: 115,
           child: RadioListTile(
             value: suscripciones[i].id,
@@ -171,5 +167,4 @@ class _PantallaSuscripcionesState extends State<PantallaSuscripciones> {
       children: _widgets,
     );
   }
-
 }

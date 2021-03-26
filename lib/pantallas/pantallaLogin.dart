@@ -211,7 +211,7 @@ class _LoginPageState extends State<LoginPage> {
       width: _width,
       height: _height * .15,
       alignment: Alignment.center,
-      child: RaisedButton(
+      child: ElevatedButton(
         onPressed: () async {
           bool valido = await UsuarioRetriever.validarUsuario(_usuario, _pass);
           if (valido) {
@@ -221,14 +221,13 @@ class _LoginPageState extends State<LoginPage> {
             print("Error en el usuario"); //Pop up o no se que hacer xd
           }
         },
-        color: Color(0xff77D353),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(40),
-        ),
-        padding: EdgeInsets.symmetric(horizontal: 45, vertical: 15),
-        child: Text(
-          "Ingresar",
-          style: Constantes.styleLabel,
+        style: Constantes.styleButton(0xff77D353),
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 35, vertical: 15),
+          child: Text(
+            "Ingresar",
+            style: Constantes.styleLabel,
+          ),
         ),
       ),
     );
@@ -242,19 +241,18 @@ class _LoginPageState extends State<LoginPage> {
       width: _width,
       height: _height * .1,
       alignment: Alignment.center,
-      child: RaisedButton(
+      child: ElevatedButton(
         onPressed: () {
           var route = MaterialPageRoute(builder: (c) => PantallaPerfiles());
           Navigator.of(context).push(route);
         },
-        color: Color(0xff77D353),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(40),
-        ),
-        padding: EdgeInsets.symmetric(horizontal: 36, vertical: 15),
-        child: Text(
-          "Registrarse",
-          style: Constantes.styleLabel,
+        style: Constantes.styleButton(0xff77D353),
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 28, vertical: 15),
+          child: Text(
+            "Registrarse",
+            style: Constantes.styleLabel,
+          ),
         ),
       ),
     );
