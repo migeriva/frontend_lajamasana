@@ -40,5 +40,7 @@ app.*.symbols
 # Obfuscation related
 app.*.map.json
 
-# Pantallas/Widgets obsoletas
+# personales
 lib/pantallas/obsoleta1.dart
+serverprueba/node_modules
+serverprueba/package.json
