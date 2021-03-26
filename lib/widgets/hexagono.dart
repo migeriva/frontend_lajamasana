@@ -1,101 +1,95 @@
 import 'package:flutter/material.dart';
-import '../pantallas/pantallaListaComidas.dart';
+import 'package:lajamasana/pantallas/pantallaListaComidas.dart';
+import 'package:lajamasana/constantes/constantes.dart';
 
 class Hexagono extends StatefulWidget {
-  int color;
-  String dia;
-  double calorias;
-  int disabled;
+  final String dia;
+  final double calorias;
 
-  Hexagono(this.color, this.dia, this.calorias, this.disabled);
+  Hexagono(this.dia, this.calorias);
 
   @override
   _HexagonoState createState() => _HexagonoState();
 }
 
 class _HexagonoState extends State<Hexagono> {
+  int _diaActual = DateTime.now().add(Duration(hours: -5)).weekday;
+  bool _disabled = true;
+
   @override
   Widget build(BuildContext context) {
+    Constantes.dias[_diaActual - 1] == widget.dia
+        ? _disabled = false
+        : _disabled = true;
+
     if (widget.dia == "Domingo") {
-      return ClipRRect(
-        borderRadius: BorderRadius.circular(30),
-        child: ClipPath(
-          clipper: MyCustomClipper(),
-          child: Container(
-              color: Color(widget.color),
-              height: 120,
-              width: 120,
-              child: Container(
-                  padding: EdgeInsets.only(top: 25),
-                  alignment: Alignment.center,
-                  child: Column(
-                    children: [
-                      Container(
-                        width: 80,
-                        height: 80,
-                        child: RaisedButton(
-                          child: Padding(
-                              padding: EdgeInsets.only(top: 3, left: 3),
-                              child: Image.asset(
-                                  "assets/imagenes/carrodecompras.png")),
-                          color: Color(0xff4FD053),
-                          onPressed: widget.disabled == 1
-                              ? null
-                              : () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => ListadoComidas()));
-                                },
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50)),
-                        ),
-                      )
-                    ],
-                  ))),
-        ),
-      );
+      return carritoCompras();
     }
+    return dia(widget.dia, widget.calorias);
+  }
+
+  Widget carritoCompras() {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(30),
       child: ClipPath(
         clipper: MyCustomClipper(),
         child: Container(
-            height: 120,
-            width: 120,
-            child: RaisedButton(
-              color: Color(0xff77D353).withOpacity(.65),
-              disabledColor: Color(widget.color),
-              onPressed: widget.disabled == 0
-                  ? () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => ListadoComidas()));
-                    }
-                  : null,
-              child: Container(
-                  padding: EdgeInsets.only(top: 30),
-                  alignment: Alignment.center,
-                  child: Column(
-                    children: [
-                      Text(
-                        widget.dia + "\n",
-                        style: TextStyle(
-                          fontFamily: "Roboto",
-                          fontSize: 15,
-                          color: Colors.black,
-                          decoration: TextDecoration.none,
-                        ),
-                      ),
-                      Text(
-                        widget.calorias.toStringAsFixed(0) + " Kcal",
-                        style: TextStyle(
-                          fontFamily: "Roboto",
-                          fontSize: 15,
-                          color: Colors.black,
-                          decoration: TextDecoration.none,
-                        ),
-                      ),
-                    ],
-                  )),
-            )),
+          width: 120,
+          height: 120,
+          child: ElevatedButton(
+            onPressed: _disabled
+                ? null
+                : () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => ListadoComidas()));
+                  },
+            child: Container(
+              height: 80,
+              width: 80,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(50),
+                color: Color(0xff4FD053),
+              ),
+              child: Image.asset(
+                "assets/imagenes/carrodecompras.png",
+                scale: 8,
+              ),
+            ),
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all<Color>(
+                  _disabled ? Color(0xff77D353).withOpacity(.5) : Colors.white),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget dia(String dia, double calorias) {
+    return ClipRRect(
+      child: ClipPath(
+        clipper: MyCustomClipper(),
+        child: Container(
+          width: 120,
+          height: 120,
+          child: ElevatedButton(
+            onPressed: _disabled
+                ? null
+                : () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => ListadoComidas()));
+                  },
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all<Color>(_disabled
+                  ? Color(0xff77D353).withOpacity(.5)
+                  : Color(0xff77D353).withOpacity(.8)),
+              shadowColor: MaterialStateProperty.all<Color>(Colors.transparent),
+            ),
+            child: Text(dia + "\n\n" + calorias.toStringAsFixed(0) + " Kcal",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontSize: 15, fontFamily: "Roboto", color: Colors.black)),
+          ),
+        ),
       ),
     );
   }
@@ -104,18 +98,26 @@ class _HexagonoState extends State<Hexagono> {
 class MyCustomClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
-    Path path = Path()
-//      ..lineTo(0, 0)
-      ..lineTo(size.width * 0.25, 0)
-      ..lineTo(0, size.height * 0.5)
-      ..lineTo(size.width * 0.25, size.height)
-      ..lineTo(size.width * 0.75, size.height)
-      ..lineTo(size.width, size.height * .5)
-      ..lineTo(size.width * 0.75, 0);
+    Size p1 = Size(size.width * .25, 0);
+    Size p2 = Size(0, size.height * .5);
+    Size p3 = Size(size.width * 0.25, size.height);
+    Size p4 = Size(size.width * 0.75, size.height);
+    Size p5 = Size(size.width, size.height * .5);
+    Size p6 = Size(size.width * 0.75, 0);
+
+    Path path = Path();
+
+    path.moveTo(p1.width, p1.height);
+    path.lineTo(p2.width, p2.height);
+    path.lineTo(p3.width, p3.height);
+    // usar - path.quadraticBezierTo(x1, y1, x2, y2)
+    path.lineTo(p4.width, p4.height);
+    path.lineTo(p5.width, p5.height);
+    path.lineTo(p6.width, p6.height);
 
     return path;
   }
 
   @override
-  bool shouldReclip(covariant CustomClipper<Path> oldClipper) => true;
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) => false;
 }
