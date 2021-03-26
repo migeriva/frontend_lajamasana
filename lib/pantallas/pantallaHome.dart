@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lajamasana/widgets/hexagono.dart';
 import 'package:lajamasana/pantallas/pantallaLogin.dart';
+import 'package:lajamasana/constantes/constantes.dart';
 
 class PantallaHome extends StatefulWidget {
   @override
@@ -8,15 +9,6 @@ class PantallaHome extends StatefulWidget {
 }
 
 class _PantallaHomeState extends State<PantallaHome> {
-  List<String> dias = [
-    "Lunes",
-    "Martes",
-    "Miercoles",
-    "Jueves",
-    "Viernes",
-    "Sabado",
-    "Domingo"
-  ];
   Map<String, List<double>> posiciones = {
     "top": [100, 150],
     "top_left": [165, 50],
@@ -44,8 +36,8 @@ class _PantallaHomeState extends State<PantallaHome> {
           padding: EdgeInsets.only(left: 260),
           child: Image.asset(
             "assets/imagenes/logo.png",
-            width: 60,
-            height: 60,
+            width: 55,
+            height: 55,
           ),
         ),
         backgroundColor: Colors.white,
@@ -60,11 +52,11 @@ class _PantallaHomeState extends State<PantallaHome> {
               //   accountEmail: Text("Adopcion de mascotas"),
               //   decoration: BoxDecoration(
               //       image: DecorationImage(
-              //         fit: BoxFit.fill,
-              //         image: AssetImage('assets/imagenes/logo.png'),
-              //       )
-              //   ),
-              // ),  //Aqui va la imagen en caso de tenerla
+              //     fit: BoxFit.fill,
+              //     image: AssetImage('assets/imagenes/logo.png'),
+              //   )),
+              // ),
+              //Aqui va la imagen en caso de tenerla
               //En caso de poner mas opciones aqui iran
               ListTile(
                 title: Text("Cerrar Sesión"),
@@ -115,7 +107,6 @@ class _PantallaHomeState extends State<PantallaHome> {
     List<Widget> widgets = [crearFondo(context)];
 
     int diaActual = DateTime.now().add(Duration(hours: -5)).weekday;
-
     if (diaActual == 7) {
       widgets.addAll(homeDomingo());
     } else {
@@ -129,13 +120,12 @@ class _PantallaHomeState extends State<PantallaHome> {
 
   List<Widget> homeDomingo() {
     List<Widget> widgets = [];
-    for (int i = 0; i < dias.length; i++) {
+    for (int i = 0; i < Constantes.dias.length; i++) {
       List<double> p = posiciones[posicion[i]];
       widgets.add(
         Padding(
           padding: EdgeInsets.only(top: p[0], left: p[1]),
-          child: Hexagono(
-              i != 6 ? 0xff969FAA : 0xffFFFFFF, dias[i], 0, i != 6 ? 1 : 0),
+          child: Hexagono(Constantes.dias[i], 0),
         ),
       );
     }
@@ -149,7 +139,7 @@ class _PantallaHomeState extends State<PantallaHome> {
     widgets.add(Padding(
       padding: EdgeInsets.only(
           top: posiciones["center"][0], left: posiciones["center"][1]),
-      child: Hexagono(0xff77D353, dias[dia - 1], 0, 0),
+      child: Hexagono(Constantes.dias[dia - 1], 0),
     ));
 
     int j = 0;
@@ -161,7 +151,7 @@ class _PantallaHomeState extends State<PantallaHome> {
       widgets.add(Padding(
         padding: EdgeInsets.only(
             top: posiciones[posicion[j]][0], left: posiciones[posicion[j]][1]),
-        child: Hexagono(0xff77D353, dias[i], 0, 0),
+        child: Hexagono(Constantes.dias[i], 0),
       ));
       j++;
       i++;
@@ -178,7 +168,7 @@ class _PantallaHomeState extends State<PantallaHome> {
       widgets.add(Padding(
         padding: EdgeInsets.only(
             top: posiciones[posicion[j]][0], left: posiciones[posicion[j]][1]),
-        child: Hexagono(0xff77D353, dias[i], 0, 0),
+        child: Hexagono(Constantes.dias[i], 0),
       ));
       j++;
       i++;
@@ -187,7 +177,7 @@ class _PantallaHomeState extends State<PantallaHome> {
     widgets.add(Padding(
       padding: EdgeInsets.only(
           top: posiciones["bottom"][0], left: posiciones["bottom"][1]),
-      child: Hexagono(0xff969FAA, dias[6], 0, 1),
+      child: Hexagono(Constantes.dias[6], 0),
     ));
 
     return widgets;
