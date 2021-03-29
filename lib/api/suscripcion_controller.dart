@@ -4,19 +4,18 @@ import 'package:lajamasana/modelos/suscripcion_model.dart';
 
 //Cambiar nombre si se necesita
 class SuscripcionController {
-
-  static String _url = "http://10.0.2.2:3000/suscripciones";
+  // static String _url2 = "http://10.0.2.2:3000/suscripciones"; //Android Studio
+  static String _url = "http://10.0.3.2:3000/suscripciones"; //Genymotion
 
   //Obtener las susscripciones
-  static Future<List<Suscripcion>> getSuscripciones() async{
-
+  static Future<List<Suscripcion>> getSuscripciones() async {
     final response = await http.get(_url);
-    if(response.statusCode != 200){
+    if (response.statusCode != 200) {
       return [];
     }
     var datos = json.decode(response.body) as List;
-    return datos.map<Suscripcion>((json) => Suscripcion.fromJson(json)).toList();
-
+    return datos
+        .map<Suscripcion>((json) => Suscripcion.fromJson(json))
+        .toList();
   }
-
 }
