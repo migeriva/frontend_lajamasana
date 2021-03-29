@@ -30,7 +30,6 @@ class Constantes {
       );
 
   //Listas
-
   static final List<String> dias = [
     "Lunes",
     "Martes",
