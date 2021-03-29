@@ -12,6 +12,8 @@ class PantallaSuscripciones extends StatefulWidget {
 
 class _PantallaSuscripcionesState extends State<PantallaSuscripciones> {
   int _selectedRadio = 0;
+  bool firstCall = true;
+  List<Suscripcion> data = [];
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +23,7 @@ class _PantallaSuscripcionesState extends State<PantallaSuscripciones> {
         crearTexto(),
         Container(
             height: MediaQuery.of(context).size.height * 0.755,
-            child: crearSuscripciones()),
+            child: firstCall?crearSuscripciones():pantallaSuscripciones(data)),
         crearBoton()
       ],
     ));
@@ -63,13 +65,13 @@ class _PantallaSuscripcionesState extends State<PantallaSuscripciones> {
                       MaterialPageRoute(builder: (context) => new PantallaHome(user)),
                       (route) => false);
                 },
-          style: Constantes.styleButton(0xff77D353),
+		style: _selectedRadio==0?Constantes.styleButton(Color(0xff77D353).withOpacity(.45)):Constantes.styleButton(Color(0xff77D353)),
           child: Text(
             "Suscribirse",
             style: TextStyle(
                 fontSize: 20,
                 fontFamily: "Roboto",
-                color: _selectedRadio == 0 ? Colors.white : Colors.black),
+                color: Colors.black),
           ),
         ));
   }
@@ -110,6 +112,7 @@ class _PantallaSuscripcionesState extends State<PantallaSuscripciones> {
             groupValue: _selectedRadio,
             onChanged: (val) {
               setState(() {
+		firstCall = false;
                 _selectedRadio = val;
               });
             },
@@ -164,6 +167,8 @@ class _PantallaSuscripcionesState extends State<PantallaSuscripciones> {
         ),
       ));
     }
+
+    data = suscripciones;  
 
     return ListView(
       children: _widgets,

@@ -333,7 +333,7 @@ class _PantallaInformacionComidaState extends State<PantallaInformacionComida> {
             Navigator.of(context)
                 .push(MaterialPageRoute(builder: (context) => new PantallaHome(user)));
           },
-          style: Constantes.styleButton(0xff4FD053),
+          style: Constantes.styleButton(Color(0xff4FD053)),
           child: Row(
             children: [
               Container(

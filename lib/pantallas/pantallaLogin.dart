@@ -222,7 +222,7 @@ class _LoginPageState extends State<LoginPage> {
             print("Error en el usuario"); //Pop up o no se que hacer xd
           }
         },
-        style: Constantes.styleButton(0xff77D353),
+        style: Constantes.styleButton(Color(0xff77D353)),
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 35, vertical: 15),
           child: Text(
@@ -247,7 +247,7 @@ class _LoginPageState extends State<LoginPage> {
           var route = MaterialPageRoute(builder: (c) => PantallaPerfiles());
           Navigator.of(context).push(route);
         },
-        style: Constantes.styleButton(0xff77D353),
+        style: Constantes.styleButton(Color(0xff77D353)),
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 28, vertical: 15),
           child: Text(
