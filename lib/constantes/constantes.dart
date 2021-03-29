@@ -22,8 +22,8 @@ class Constantes {
       fontWeight: FontWeight.bold,
       color: Colors.black);
 
-  static final styleButton = (color) => ButtonStyle(
-        backgroundColor: MaterialStateProperty.all<Color>(Color(color)),
+  static final styleButton = (Color color) => ButtonStyle(
+        backgroundColor: MaterialStateProperty.all<Color>(color),
         shadowColor: MaterialStateProperty.all<Color>(Colors.transparent),
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))),
