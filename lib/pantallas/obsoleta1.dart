@@ -65,7 +65,8 @@ class _PantallaDeComidaState extends State<PantallaDeComida> {
     return Container(
         child: Row(children: [
       Expanded(
-          child: Divider(color: Color(0xff4FD053), height: 20, thickness: 3))
+          child: Divider(color: Color(0xff4FD053), height: 20, thickness: 3)),
+      Container(padding: EdgeInsets.only(top: 20),);
     ]));
   }
 

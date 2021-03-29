@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lajamasana/modelos/usuarios_model.dart';
 import 'package:lajamasana/pantallas/pantallaHome.dart';
 import 'package:lajamasana/widgets/notas.dart';
 import 'package:lajamasana/constantes/constantes.dart';
@@ -328,8 +329,9 @@ class _PantallaInformacionComidaState extends State<PantallaInformacionComida> {
         height: 50,
         child: ElevatedButton(
           onPressed: () {
+	    Usuario user;
             Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => PantallaHome()));
+                .push(MaterialPageRoute(builder: (context) => new PantallaHome(user)));
           },
           style: Constantes.styleButton(0xff4FD053),
           child: Row(

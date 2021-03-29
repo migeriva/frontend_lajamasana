@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lajamasana/api/suscripcion_controller.dart';
 import 'package:lajamasana/constantes/constantes.dart';
 import 'package:lajamasana/modelos/suscripcion_model.dart';
+import 'package:lajamasana/modelos/usuarios_model.dart';
 import 'package:lajamasana/pantallas/pantallaHome.dart';
 
 class PantallaSuscripciones extends StatefulWidget {
@@ -57,8 +58,9 @@ class _PantallaSuscripcionesState extends State<PantallaSuscripciones> {
           onPressed: _selectedRadio == 0
               ? null
               : () {
+		Usuario user;
                   Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(builder: (context) => PantallaHome()),
+                      MaterialPageRoute(builder: (context) => new PantallaHome(user)),
                       (route) => false);
                 },
           style: Constantes.styleButton(0xff77D353),

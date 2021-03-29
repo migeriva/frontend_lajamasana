@@ -3,6 +3,7 @@ import 'package:lajamasana/api/usuario_controller.dart';
 import 'package:lajamasana/pantallas/pantallaPerfiles.dart';
 import 'package:lajamasana/pantallas/pantallaHome.dart';
 import 'package:lajamasana/constantes/constantes.dart';
+import 'package:lajamasana/modelos/usuarios_model.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -213,9 +214,9 @@ class _LoginPageState extends State<LoginPage> {
       alignment: Alignment.center,
       child: ElevatedButton(
         onPressed: () async {
-          bool valido = await UsuarioRetriever.validarUsuario(_usuario, _pass);
-          if (valido) {
-            var route = MaterialPageRoute(builder: (context) => PantallaHome());
+          Usuario user = await UsuarioController.validarUsuario(_usuario, _pass);
+          if (user!=null) {
+            var route = MaterialPageRoute(builder: (context) => new PantallaHome(user));
             Navigator.of(context).pushAndRemoveUntil(route, (r) => false);
           } else {
             print("Error en el usuario"); //Pop up o no se que hacer xd

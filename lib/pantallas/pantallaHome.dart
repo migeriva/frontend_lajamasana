@@ -2,8 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:lajamasana/widgets/hexagono.dart';
 import 'package:lajamasana/pantallas/pantallaLogin.dart';
 import 'package:lajamasana/constantes/constantes.dart';
+import 'package:lajamasana/modelos/usuarios_model.dart';
 
 class PantallaHome extends StatefulWidget {
+
+  final Usuario user;
+  
+  PantallaHome(this.user);
+
   @override
   _PantallaHomeState createState() => _PantallaHomeState();
 }
