@@ -6,7 +6,7 @@ class Constantes {
   static final String urlPerfiles = "";
   static final String urlSuscripciones = "";
   static final String urlUsuarios = "";
-
+	static final String urlImages = "http://10.0.3.2:8000/static";//Esto depende del emulador donde esten 
   //TextStyle
 
   static final TextStyle styleLogo = TextStyle(
