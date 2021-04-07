@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:lajamasana/api/comidas_controller.dart';
 import 'package:lajamasana/pantallas/pantallaInformacionComida.dart';
+import 'package:lajamasana/modelos/comidas_model.dart';
+import 'package:lajamasana/constantes/constantes.dart';
 
 class ListadoComidas extends StatefulWidget {
   @override
@@ -10,6 +13,7 @@ class _ListadoComidasState extends State<ListadoComidas> {
   List<String> _horarios = ["Desayuno", "Almuerzo", "Merienda"];
   Color colorFondo = Color(0xff77D353).withOpacity(.06);
   String _hint = "Almuerzo"; //Cambiar de acuerdo a la hora del dia actual
+//	bool _firstCall = true;
 
   @override
   Widget build(BuildContext context) {
@@ -182,24 +186,33 @@ class _ListadoComidasState extends State<ListadoComidas> {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20),
       height: size * .898, //Arreglar la vainita de los tamaños
-      child: GridView.count(
+      child: FutureBuilder(
+					future: ComidasController.getComidas(),
+					builder: (BuildContext context, AsyncSnapshot<List<Comida>> snapshot){
+						if(snapshot.connectionState == ConnectionState.waiting){
+							return Center(child: CircularProgressIndicator());
+						}else{
+							return crearComida(snapshot.data); 
+						}
+					},
+				), 
+			);
+  }
+
+	Widget crearComida(List<Comida> comidas){
+
+		return GridView.count(
         scrollDirection: Axis.vertical,
         childAspectRatio: (150 / 210), //Para mover el tamaño (w/h)
         crossAxisCount: 2,
         mainAxisSpacing: 15,
         crossAxisSpacing: 15,
-        children: [
-          cardComida("assets/imagenes/calysupremo.png", "CalySupremo"),
-          cardComida("assets/imagenes/rollycaly.png", "RollyCaly"),
-          cardComida("assets/imagenes/calysupremo.png", "CalySupremo"),
-          cardComida("assets/imagenes/rollycaly.png", "RollyCaly"),
-        ],
-      ),
-    );
-  }
+        children: comidas.map<Widget>((element) => cardComida(element)).toList()
+      );
+	}
 
   //Funcion para crear las cards para las comidas obtenidas
-  Widget cardComida(String imagen, String nombre) {
+  Widget cardComida(Comida comida) {
     return Card(
       shadowColor: colorFondo,
       color: colorFondo,
@@ -210,14 +223,15 @@ class _ListadoComidasState extends State<ListadoComidas> {
       child: Column(
         children: [
           Center(
-            child: Image.asset(
-              imagen,
-              scale: 3.5,
-            ),
+            child: Image.network(
+								Constantes.urlImages+comida.imagen, 
+								width: 130, 
+								height: 150,
+							)
           ),
           Center(
             child: Text(
-              "Nombre del platillo",
+							comida.nombre,
               textScaleFactor: 1.1,
             ),
           ),
@@ -226,7 +240,7 @@ class _ListadoComidasState extends State<ListadoComidas> {
             child: ElevatedButton(
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => PantallaInformacionComida()));
+                    builder: (context) => PantallaInformacionComida(comida)));
               },
               child: Text(
                 "Ver más",

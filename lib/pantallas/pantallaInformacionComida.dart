@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:lajamasana/modelos/usuarios_model.dart';
+import 'package:lajamasana/modelos/comidas_model.dart';
 import 'package:lajamasana/pantallas/pantallaHome.dart';
 import 'package:lajamasana/widgets/notas.dart';
 import 'package:lajamasana/constantes/constantes.dart';
 
 class PantallaInformacionComida extends StatefulWidget {
+
+	final Comida comida;
+	PantallaInformacionComida(this.comida);
+	
   @override
   _PantallaInformacionComidaState createState() =>
       _PantallaInformacionComidaState();
@@ -51,7 +56,8 @@ class _PantallaInformacionComidaState extends State<PantallaInformacionComida> {
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.only(left: 20),
             child: Text(
-              "Calysupremo",
+								widget.comida.nombre,
+              //"Calysupremo",
               style: TextStyle(
                 fontFamily: "Roboto",
                 fontSize: 20,
@@ -63,8 +69,8 @@ class _PantallaInformacionComidaState extends State<PantallaInformacionComida> {
           Container(
             height: 200,
             alignment: Alignment.center,
-            child: Image.asset(
-              "assets/imagenes/calysupremo.png",
+            child: Image.network(
+              Constantes.urlImages+widget.comida.imagen,
               width: 180,
               height: 180,
             ),
@@ -87,11 +93,10 @@ class _PantallaInformacionComidaState extends State<PantallaInformacionComida> {
           Container(
             height: 30,
             padding: EdgeInsets.symmetric(horizontal: 25),
-            // color: Colors.yellow,
             alignment: Alignment.centerLeft,
             child: RichText(
               text: TextSpan(
-                  text: "\$10.00 ",
+                  text: "\$"+widget.comida.precio.toStringAsFixed(2),
                   style: TextStyle(
                     fontFamily: "Roboto",
                     fontSize: 16,
@@ -116,7 +121,7 @@ class _PantallaInformacionComidaState extends State<PantallaInformacionComida> {
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.symmetric(horizontal: 25),
             child: Text(
-              "Contiene una porción de jamón asado al vino, una porción de tomates cherry y lechuga.",
+              widget.comida.descripcion,//"Contiene una porción de jamón asado al vino, una porción de tomates cherry y lechuga.",
               textAlign: TextAlign.justify,
               style: TextStyle(
                 fontFamily: "Roboto",
@@ -128,13 +133,11 @@ class _PantallaInformacionComidaState extends State<PantallaInformacionComida> {
           //Cabecera del valor energetico e ingesta
           Container(
             height: 30,
-            // color: Colors.yellowAccent,
             child: Row(
               children: [
                 Container(
                   padding: EdgeInsets.only(left: 25),
                   alignment: Alignment.centerLeft,
-                  // color: Colors.cyan,
                   width: MediaQuery.of(context).size.width * .6,
                   child: RichText(
                     text: TextSpan(
@@ -162,7 +165,6 @@ class _PantallaInformacionComidaState extends State<PantallaInformacionComida> {
                 Container(
                   padding: EdgeInsets.only(right: 25),
                   alignment: Alignment.centerRight,
-                  // color: Colors.grey,
                   width: MediaQuery.of(context).size.width * .4,
                   child: Text(
                     "Ingesta",
@@ -180,17 +182,15 @@ class _PantallaInformacionComidaState extends State<PantallaInformacionComida> {
           //Valores para el valor energetico e ingesta
           Container(
             height: 30,
-            // color: Colors.blue,
             child: Row(
               children: [
                 Container(
                   padding: EdgeInsets.only(left: 25),
                   alignment: Alignment.centerLeft,
-                  // color: Colors.blue,
                   width: MediaQuery.of(context).size.width *
                       .45, // Ajustar dependiento de los valores
                   child: Text(
-                    "Valor energetico",
+                    widget.comida.macronutrientes.toString(),//"Valor energetico",
                     style: TextStyle(
                       fontFamily: "Roboto",
                       fontSize: 16,
@@ -202,11 +202,10 @@ class _PantallaInformacionComidaState extends State<PantallaInformacionComida> {
                 Container(
                   padding: EdgeInsets.only(right: 25),
                   alignment: Alignment.centerRight,
-                  // color: Colors.lightGreen,
                   width: MediaQuery.of(context).size.width *
                       .55, // Ajustar dependiento de los valores
                   child: Text(
-                    "8400kJ/2000kCal",
+                    widget.comida.caloriasTotales.toStringAsFixed(2), //Falta verificar
                     style: TextStyle(
                       fontFamily: "Roboto",
                       fontSize: 16,
