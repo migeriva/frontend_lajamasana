@@ -1,8 +1,7 @@
 import 'dart:convert';
 
-List<Suscripcion> suscripcionFromJson(String str) => 
-List<Suscripcion>.from(json.decode(str).map((x) => 
-				Suscripcion.fromJson(x)));
+List<Suscripcion> suscripcionFromJson(String str) => List<Suscripcion>.from(
+    json.decode(str).map((x) => Suscripcion.fromJson(x)));
 
 String suscripcionToJson(List<Suscripcion> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
@@ -15,11 +14,11 @@ class Suscripcion {
     this.duracion,
     this.cantidad,
     this.color,
- });
+  });
 
   int id;
   String nombre;
-  int precio;
+  double precio;
   String duracion;
   String cantidad;
   String color;
