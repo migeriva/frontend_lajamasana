@@ -30,6 +30,18 @@ class Constantes {
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))),
       );
 
+  static final dropdownMenuItemStyle = (String value) => Container(
+        padding: EdgeInsets.all(10),
+        child: Text(
+          value,
+          style: TextStyle(
+            fontSize: 17,
+            fontStyle: FontStyle.italic,
+            color: Colors.black,
+            fontFamily: "Roboto",
+          ),
+        ),
+      );
   //Listas
   static final List<String> dias = [
     "Lunes",
