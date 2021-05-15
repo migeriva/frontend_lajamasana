@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lajamasana/pantallas/pantallaInfoDia.dart';
+import 'package:lajamasana/pantallas/pantallaLogin.dart';
 
 void main() => runApp(MyApp());
 
@@ -12,6 +12,6 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primaryColor: Colors.white,
         ),
-        home: PantallaInformacionDia());
+        home: LoginPage());
   }
 }
