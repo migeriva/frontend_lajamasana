@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 
 class Constantes {
   //URL
-  //No usadas
-  static final String urlPerfiles = "";
-  static final String urlSuscripciones = "";
-  static final String urlUsuarios = "";
-  static final String urlImages =
-      "http://10.0.3.2:8000/static"; //Esto depende del emulador donde esten
-  //TextStyle
+  static final String urlGeneral = "http://10.0.3.2:8000/general";
+  static final String urlSuscripciones = "http://10.0.3.2:4000/suscripciones";
+  static final String urlUsuarios = "http://10.0.3.2:8000/usuarios";
+  static final String urlImages = "http://10.0.3.2:8000/static";
+  static final String urlProductos = "http://10.0.3.2:8000/productos";
 
+  //TextStyle
   static final TextStyle styleLogo = TextStyle(
     fontSize: 25,
     fontWeight: FontWeight.bold,
