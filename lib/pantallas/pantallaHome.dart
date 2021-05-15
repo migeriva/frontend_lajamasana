@@ -3,11 +3,11 @@ import 'package:lajamasana/widgets/hexagono.dart';
 import 'package:lajamasana/pantallas/pantallaLogin.dart';
 import 'package:lajamasana/constantes/constantes.dart';
 import 'package:lajamasana/modelos/usuarios_model.dart';
+import 'package:lajamasana/pantallas/pantallaInfoDia.dart';
 
 class PantallaHome extends StatefulWidget {
-
   final Usuario user;
-  
+
   PantallaHome(this.user);
 
   @override
@@ -70,6 +70,16 @@ class _PantallaHomeState extends State<PantallaHome> {
                 onTap: () => Navigator.of(context).pushAndRemoveUntil(
                     MaterialPageRoute(builder: (context) => LoginPage()),
                     (route) => false),
+              ),
+              Divider(
+                thickness: 2,
+                height: 5,
+              ),
+              ListTile(
+                title: Text("Ver comidas por dia"),
+                trailing: Icon(Icons.fastfood),
+                onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => PantallaInformacionDia())),
               ),
               Divider(
                 thickness: 2,

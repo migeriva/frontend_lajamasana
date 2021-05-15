@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lajamasana/api/suscripcion_controller.dart';
 import 'package:lajamasana/constantes/constantes.dart';
 import 'package:lajamasana/modelos/suscripcion_model.dart';
-import 'package:lajamasana/modelos/usuarios_model.dart';
-import 'package:lajamasana/pantallas/pantallaHome.dart';
+import 'package:lajamasana/pantallas/pantallaDatosPersonales.dart';
 
 class PantallaSuscripciones extends StatefulWidget {
   @override
@@ -23,7 +22,8 @@ class _PantallaSuscripcionesState extends State<PantallaSuscripciones> {
         crearTexto(),
         Container(
             height: MediaQuery.of(context).size.height * 0.755,
-            child: firstCall?crearSuscripciones():pantallaSuscripciones(data)),
+            child:
+                firstCall ? crearSuscripciones() : pantallaSuscripciones(data)),
         crearBoton()
       ],
     ));
@@ -60,18 +60,16 @@ class _PantallaSuscripcionesState extends State<PantallaSuscripciones> {
           onPressed: _selectedRadio == 0
               ? null
               : () {
-		Usuario user;
-                  Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(builder: (context) => new PantallaHome(user)),
-                      (route) => false);
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => PantallaDatosPersonales()));
                 },
-		style: _selectedRadio==0?Constantes.styleButton(Color(0xff77D353).withOpacity(.45)):Constantes.styleButton(Color(0xff77D353)),
+          style: _selectedRadio == 0
+              ? Constantes.styleButton(Color(0xff77D353).withOpacity(.45))
+              : Constantes.styleButton(Color(0xff77D353)),
           child: Text(
             "Suscribirse",
             style: TextStyle(
-                fontSize: 20,
-                fontFamily: "Roboto",
-                color: Colors.black),
+                fontSize: 20, fontFamily: "Roboto", color: Colors.black),
           ),
         ));
   }
@@ -112,7 +110,7 @@ class _PantallaSuscripcionesState extends State<PantallaSuscripciones> {
             groupValue: _selectedRadio,
             onChanged: (val) {
               setState(() {
-		firstCall = false;
+                firstCall = false;
                 _selectedRadio = val;
               });
             },
@@ -168,7 +166,7 @@ class _PantallaSuscripcionesState extends State<PantallaSuscripciones> {
       ));
     }
 
-    data = suscripciones;  
+    data = suscripciones;
 
     return ListView(
       children: _widgets,
