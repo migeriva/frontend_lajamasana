@@ -42,5 +42,4 @@ app.*.map.json
 
 # personales
 lib/pantallas/obsoleta1.dart
-serverprueba/node_modules
-serverprueba/package.json
+serverprueba/
