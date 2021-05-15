@@ -18,7 +18,7 @@ class Suscripcion {
 
   int id;
   String nombre;
-  double precio;
+  int precio;
   String duracion;
   String cantidad;
   String color;
