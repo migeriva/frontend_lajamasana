@@ -4,27 +4,63 @@
 // utility that Flutter provides. For example, you can send tap and scroll
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
-
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:lajamasana/main.dart';
+import 'package:lajamasana/api/usuario_controller.dart';
+import 'package:lajamasana/modelos/comidas_model.dart';
+import 'package:lajamasana/modelos/usuarios_model.dart';
+import 'package:lajamasana/pantallas/pantallaHome.dart';
+import 'package:lajamasana/pantallas/pantallaInfoDia.dart';
+import 'package:lajamasana/pantallas/pantallaInformacionComida.dart';
+import 'package:lajamasana/pantallas/pantallaLogin.dart';
+import 'package:lajamasana/pantallas/pantallaPerfiles.dart';
+import 'package:lajamasana/pantallas/pantallaSuscripciones.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(MyApp());
+  test("El listado de perfiles no debe ser null", () {
+    PantallaPerfiles perfiles = PantallaPerfiles();
+    expect(perfiles.createState().listasCargadas(), false);
+  });
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+  test("La cantidad de pedidos debe ser 0", () {
+    Comida comida = Comida(
+        id: 1,
+        nombre: "prueba",
+        descripcion: "prueba",
+        precio: 20,
+        caloriasTotales: 100,
+        macronutrientes: "223",
+        idCategoria: 1,
+        idVendedor: 1,
+        imagen: "prueba",
+        estado: false);
+    PantallaInformacionComida informacion = PantallaInformacionComida(comida);
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    expect(informacion.createState().getContador(), 0);
+  });
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+  test("La lista de suscripciones no debe ser null", () {
+    PantallaSuscripciones suscripciones = PantallaSuscripciones();
+
+    expect(suscripciones.createState().getDataSuscripciones(), false);
+  });
+
+  test("El usuario no debe ser null en pantalla home", () async {
+    Usuario user =
+        await UsuarioController.validarUsuario("karengomez", "thisisatest");
+    PantallaHome home = PantallaHome(user);
+
+    expect(home.user, isNotNull);
+  });
+
+  test("Los campos de username y password deben estar limpios", () {
+    LoginPage login = LoginPage();
+    expect(login.createState().getUser(), "");
+    expect(login.createState().getPass(), "");
+  });
+
+  test("Los datos de informacion de comidas por dia no debe estar vacio", () {
+    PantallaInformacionDia informacion = PantallaInformacionDia();
+
+    expect(informacion.createState().getDataComidas(), false);
   });
 }
