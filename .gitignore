@@ -41,5 +41,4 @@ app.*.symbols
 app.*.map.json
 
 # personales
-lib/pantallas/obsoleta1.dart
 serverprueba/
